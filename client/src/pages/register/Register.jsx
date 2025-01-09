@@ -5,6 +5,8 @@ import { AuthContext } from "../../context/AuthContext";
 import "./register.css";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const Register = () => {
   const [credentials, setCredentials] = useState({
     username: "",
@@ -51,10 +53,10 @@ const Register = () => {
 
     try {
       // Register the user
-      await axios.post("/auth/register", registerData);
+      await axios.post(`${API_URL}/api/auth/register`, registerData);
 
       // Automatically log in after registering
-      const loginRes = await axios.post("/auth/login", {
+      const loginRes = await axios.post(`${API_URL}/api/auth/login`, {
         username: credentials.username,
         password: credentials.password,
       });

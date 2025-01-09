@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import "./footer.css";
+import "./footer.css"
+const API_URL = process.env.REACT_APP_API_URL;
 
 const Footer = () => {
   const [question, setQuestion] = useState("");
@@ -33,7 +34,7 @@ const Footer = () => {
       const userId = user ? user._id : null;
   
       // Send the user's question and conversation state to the backend API
-      const apiResponse = await fetch('/assistant', {
+      const apiResponse = await fetch(`${API_URL}/api/assistant`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

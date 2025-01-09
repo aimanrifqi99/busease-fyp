@@ -5,6 +5,8 @@ import Navbar from "../../components/navbar/Navbar";
 import { AuthContext } from "../../context/AuthContext";
 import "./bookings.css";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const UserBookings = () => {
   const [bookings, setBookings] = useState([]);
   const { user } = useContext(AuthContext);
@@ -20,7 +22,7 @@ const UserBookings = () => {
         }
   
         const res = await axios.get(
-          `http://localhost:5000/api/bookings/${user._id}`,
+        `${API_URL}/api/bookings/${user._id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -44,7 +46,7 @@ const UserBookings = () => {
       const token = user?.token;
 
       const res = await axios.post(
-        "http://localhost:5000/api/bookings/cancel-booking",
+        `${API_URL}/api/bookings/cancel-booking`,
         { bookingId, userId: user._id },
         {
           headers: {

@@ -8,6 +8,7 @@ import { AuthContext } from '../../context/AuthContext';
 import { loadStripe } from '@stripe/stripe-js';
 
 const stripePromise = loadStripe('pk_test_51QAYjCJpEmLb8AB19f8Fuc0yWvWVplTBjltUdeP9jdmXEFcGBleoT3xJnCtOCaZtqPyr0B8sXPYf5cNML6UwWfbI00TmOd12Ua'); // Replace with your publishable key
+const API_URL = process.env.REACT_APP_API_URL;
 
 const Reserve = ({ setOpen, scheduleId }) => {
   const [selectedSeats, setSelectedSeats] = useState([]);
@@ -52,7 +53,7 @@ const Reserve = ({ setOpen, scheduleId }) => {
 
       // Proceed to create Stripe Checkout session
       const response = await axios.post(
-        '/stripe/create-checkout-session',
+        `${API_URL}/api/stripe/create-checkout-session`,
         {
           scheduleId,
           seatNumbers: selectedSeats,

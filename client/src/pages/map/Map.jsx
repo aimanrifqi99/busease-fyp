@@ -19,7 +19,7 @@ const Map = () => {
   useEffect(() => {
     const fetchSchedule = async () => {
       try {
-        const response = await fetch(`/schedules/distance-matrix/${id}`); //Backend API call
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/schedules/distance-matrix/${id}`); //Backend API call
         if (!response.ok) {
           throw new Error(`Error fetching schedule: ${response.statusText}`);
         }

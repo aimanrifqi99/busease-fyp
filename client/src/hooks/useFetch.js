@@ -1,34 +1,40 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"; 
 import axios from "axios";
 
 const useFetch = (initialUrl) => {
-  const [data, setData] = useState([]); // Initialize with an empty array
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null); // Initialize error as null
+  const [data, setData] = useState([]); // Data from the API
+  const [loading, setLoading] = useState(false); // Loading state
+  const [error, setError] = useState(null); // Error state
   const [url, setUrl] = useState(initialUrl); // Track the current URL
 
   const fetchData = async (fetchUrl) => {
+    if (!fetchUrl) return; // Skip if no URL is provided
+
     setLoading(true);
-    setError(null); // Reset error before fetching
+    setError(null);
     try {
-      const res = await axios.get(fetchUrl);
-      setData(res.data); // Set the data returned from the API
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/api${fetchUrl}`);
+      setData(res.data);
     } catch (err) {
-      setError(err); // Set error if fetch fails
+      setError(err.response?.data || err.message);
     } finally {
-      setLoading(false); // Ensure loading state is reset
+      setLoading(false);
     }
   };
 
-  // Fetch data when the URL changes
   useEffect(() => {
     fetchData(url);
   }, [url]);
 
-  // Function to refetch data with a new URL
-  const refetch = (origin, destination, date) => {
-    const newUrl = `/schedules/?origin=${origin}&destination=${destination}&departureDate=${date}`;
-    setUrl(newUrl); // Set the new URL, triggering a fetch
+  const buildQueryParams = (params) =>
+    Object.entries(params)
+      .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+      .join('&');
+
+  const refetch = (params) => {
+    const query = buildQueryParams(params);
+    const newUrl = `${process.env.REACT_APP_API_URL}/schedules/?${query}`;
+    setUrl(newUrl);
   };
 
   return { data, loading, error, refetch };

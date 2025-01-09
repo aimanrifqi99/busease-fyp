@@ -4,6 +4,8 @@ import { useNavigate, Link, useLocation } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import "./login.css";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const Login = () => {
   const [credentials, setCredentials] = useState({
     username: "",
@@ -22,7 +24,8 @@ const Login = () => {
     e.preventDefault();
     dispatch({ type: "LOGIN_START" });
     try {
-      const res = await axios.post("/auth/login", credentials);
+      const res = await axios.post(
+        `${API_URL}/api/auth/login`, credentials);
 
       // Combine user details and token in one payload
       const userData = { ...res.data.details, token: res.data.token };

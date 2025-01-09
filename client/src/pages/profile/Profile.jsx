@@ -8,6 +8,7 @@ import Navbar from "../../components/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 
 const defaultProfilePic = "https://static.thenounproject.com/png/638636-200.png";
+const API_URL = process.env.REACT_APP_API_URL;
 
 const Profile = () => {
   const { user, dispatch } = useContext(AuthContext);
@@ -59,7 +60,7 @@ const Profile = () => {
 
     try {
       const updateRes = await axios.put(
-        `/users/${user._id}`,
+      `${API_URL}/api/users/${user._id}`,
         { img: imgUrl, email, phone },
         {
           headers: {

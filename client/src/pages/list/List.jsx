@@ -9,6 +9,8 @@ import Autosuggest from 'react-autosuggest';
 import "react-datepicker/dist/react-datepicker.css";
 import "./list.css";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const cities = [
   'Kuala Lumpur (Tbs)', 'George Town (Penang Sentral)', 'Ipoh (Terminal Amanjaya)', 'Johor Bahru (Jb Sentral)',
   'Shah Alam (Terminal 17)', 'Seremban (Terminal One)', 'Alor Setar (Terminal Shahab Perdana)', 'Kuala Terengganu (Terminal Bas Mbkt)',
@@ -52,7 +54,7 @@ const List = () => {
 
       const queryString = new URLSearchParams(query).toString();
 
-      const response = await fetch(`/schedules/?${queryString}`);
+      const response = await fetch(`${API_URL}/api/schedules/?${queryString}`);
 
       if (!response.ok) {
         throw new Error(`Error: ${response.status} ${response.statusText}`);

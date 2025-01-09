@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './success.css';
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const Success = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -22,12 +24,12 @@ const Success = () => {
           const token = JSON.parse(localStorage.getItem('user'))?.token;
 
           const response = await axios.post(
-            `http://localhost:5000/api/schedules/book-seats`, // Full URL to backend
+            `${API_URL}/api/schedules/book-seats`,
             { scheduleId, seatNumbers, userId },
             {
               headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`, // Add token to Authorization header
+                Authorization: `Bearer ${token}`,
               },
             }
           );
