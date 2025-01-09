@@ -1,0 +1,197 @@
+.searchItem {
+  border: 1px solid #e0e0e0;
+  padding: 20px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 20px;
+  background-color: #fff;
+}
+
+/* Container for Image and Available Seats */
+.siLeftContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 200px;
+}
+
+.siImageContainer {
+  width: 100%;
+  height: 200px;
+  margin-bottom: 10px;
+}
+
+.siImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+/* Available Seats Styling */
+.siAvailableSeats {
+  font-size: 16px;
+  color: #333;
+}
+
+.siAvailableSeatsNumber {
+  color: #c0392b;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+/* Description Section */
+.siDesc {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  flex: 2;
+}
+
+.siTitle {
+  font-size: 24px;
+  color: #0071c2;
+  font-weight: bold;
+}
+
+.siSectionTitle {
+  font-size: 15px;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.siRouteDetails p,
+.siFeatures {
+  font-size: 16px;
+  color: #555;
+  margin: 4px 0;
+}
+
+.importantText {
+  color: #005f9e;
+  font-weight: bold;
+}
+
+.siStops ul,
+.siExtraDetails ul {
+  padding-left: 20px;
+}
+
+.siStops li,
+.siExtraDetails li {
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+.siExtraDetails {
+  margin-top: 10px;
+}
+
+.siDescription {
+  font-size: 12px;
+  color: #6f6f6f;
+  line-height: 1.4;
+}
+
+/* Expand/Collapse Button */
+.siExpandButton {
+  background-color: white;
+  color: #0071c2;
+  font-weight: bold;
+  padding: 6px 8px;
+  border: 1px solid #0071c2;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 12px;
+  align-self: flex-start;
+  margin-top: auto;
+}
+
+.siExpandButton:hover {
+  background-color: #0071c2;
+  color: white;
+}
+
+/* Details Section (Pricing and Map) */
+.siDetails {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.siDetailTexts {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.siPrice {
+  font-size: 26px;
+  font-weight: bold;
+  color: #ff6f00;
+}
+
+.siTaxOp {
+  font-size: 12px;
+  color: gray;
+}
+
+.siCheckButton {
+  background-color: #0071c2;
+  color: white;
+  font-weight: bold;
+  padding: 7px 15px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 15px;
+  transition: background-color 0.3s ease;
+}
+
+.siCheckButton:hover {
+  background-color: #005f9e;
+}
+
+/* Map Container */
+.siMapContainer {
+  width: 160px;
+  height: 185px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.siViewRouteLabel {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  margin-top: 4px;
+  text-align: center;
+}
+
+.siMapButton {
+  width: 90%;
+  height: 90%;
+  background-color: transparent;
+  background-image: url('/src/images/imagemap.jpg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: none;
+  cursor: pointer;
+}
+
+.siMapButton:hover {
+  opacity: 0.8;
+}

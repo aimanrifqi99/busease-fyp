@@ -1,0 +1,115 @@
+.header {
+  background: #003580;
+  color: white;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  padding: 20px 0;
+}
+
+.headerContainer {
+  width: 100%;
+  max-width: 1024px;
+  margin: 20px 0px 100px 0px;
+  border-radius: 10px;
+  height: 400px;
+  padding-top: 65px;
+}
+
+.headerSearch {
+  height: 50px;
+  background-color: white;
+  border: 3px solid gray;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px 0px;
+  border-radius: 5px;
+  position: relative; /* Important for positioning suggestions */
+  z-index: 1; /* Base z-index */
+}
+
+.headerSearchItem {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  margin-right: 20px; /* Add space between fields */
+}
+
+.headerSearchInput {
+  border: none;
+  outline: none;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 150px;
+  color: black;
+}
+
+.autosuggestInput {
+  width: 100%;
+}
+
+.headerIcon {
+  color: #333;
+}
+
+.headerBtn {
+  padding: 10px 20px;
+  background-color: #f89e3e;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.headerBtn:hover {
+  background-color: #f1c98b;
+}
+
+/* Date Picker Popper */
+.datePickerPopper {
+  z-index: 9999;
+}
+
+/* Autosuggest Styles for Header */
+.headerAutosuggestContainer {
+  position: relative;
+  width: 100%;
+}
+
+.headerAutosuggestSuggestionsContainer {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000; 
+  max-height: 250px;
+  width: 196px;
+  overflow-y: auto; 
+}
+
+.headerAutosuggestSuggestionsList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.headerAutosuggestSuggestion {
+  padding: 10px;
+  cursor: pointer;
+  color: black;
+}
+
+.headerAutosuggestSuggestion:hover {
+  background-color: #f0f0f0;
+  color: black;
+}
+

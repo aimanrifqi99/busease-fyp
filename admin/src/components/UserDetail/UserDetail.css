@@ -1,0 +1,77 @@
+/* Container styling */
+.userDetail {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+}
+
+/* Heading styling */
+.userDetail h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #333;
+    font-weight: bold; /* Added for better emphasis */
+    line-height: 1.2; /* Improved readability */
+}
+
+/* Label styling */
+.userDetail label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 16px; /* Ensures consistency */
+    color: #444; /* Slightly darker for better contrast */
+}
+
+/* Input styling */
+.userDetail input[type="text"],
+.userDetail input[type="email"],
+.userDetail input[type="tel"],
+.userDetail input[type="checkbox"] {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box; /* Ensures consistent sizing */
+}
+
+.userDetail input[type="text"]:focus,
+.userDetail input[type="email"]:focus,
+.userDetail input[type="tel"]:focus,
+.userDetail input[type="checkbox"]:focus {
+    border-color: #007bff; /* Highlight input on focus */
+    outline: none; /* Removes default outline */
+}
+
+/* Button styling */
+.userDetail button {
+    margin-top: 15px;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.userDetail button:hover {
+    background-color: #0056b3;
+}
+
+/* Styling for button group */
+.buttonGroup {
+    display: flex;
+    gap: 10px; /* Adds space between buttons */
+}
+
+/* Success message styling */
+.successMessage {
+    margin-bottom: 15px;
+    color: green;
+    font-weight: bold; /* Emphasizes the success message */
+}

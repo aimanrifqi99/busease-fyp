@@ -1,0 +1,195 @@
+/* ScheduleDetail.css */
+
+/* Container styling */
+.scheduleDetail {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+}
+
+/* Heading styling */
+.scheduleDetail h2 {
+    font-size: 26px;
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Label styling */
+.scheduleDetail label {
+    display: block;
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #444;
+}
+
+/* Input and textarea styling */
+.scheduleDetail input[type="text"],
+.scheduleDetail input[type="date"],
+.scheduleDetail input[type="number"],
+.scheduleDetail input[type="time"],
+.scheduleDetail textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.scheduleDetail input[type="text"]:focus,
+.scheduleDetail input[type="date"]:focus,
+.scheduleDetail input[type="number"]:focus,
+.scheduleDetail input[type="time"]:focus,
+.scheduleDetail textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Image upload section styling */
+.imageUploadSection {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.imageUploadLabel {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.imagePreview {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.uploadIcon {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    padding: 4px;
+    font-size: 20px;
+}
+
+/* Stops section styling */
+.stopsSection {
+    margin-bottom: 20px;
+}
+
+.stopInputs {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.stopsSection .stopInputs input[type="text"],
+.stopsSection .stopInputs input[type="time"] {
+    flex: 1;
+}
+
+.addStopButton {
+    padding: 8px 12px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.addStopButton:hover {
+    background-color: #218838;
+}
+
+.stopList {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 15px;
+}
+
+.stopList li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f8f9fa;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.removeStopButton {
+    padding: 5px 10px;
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.removeStopButton:hover {
+    background-color: #c82333;
+}
+
+/* Button group styling */
+.buttonGroup {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.buttonGroup button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.buttonGroup button:hover {
+    background-color: #0056b3;
+}
+
+.cancelButton {
+    background-color: #f44336;
+}
+
+.cancelButton:hover {
+    background-color: #c0392b;
+}
+
+/* Success and error message styling */
+.successMessage {
+    margin-bottom: 15px;
+    color: green;
+    font-weight: bold;
+    text-align: center;
+}
+
+.errorMessage {
+    margin-bottom: 15px;
+    color: #f44336;
+    font-weight: bold;
+    text-align: center;
+}

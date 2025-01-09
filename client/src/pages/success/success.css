@@ -1,0 +1,28 @@
+/* success.css */
+
+/* Main container styling */
+.success-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Loading message styling */
+  .success-container .loading-message {
+    font-size: 1.5em;
+    color: #007bff; /* Blue color for a reassuring tone */
+    margin-bottom: 20px;
+  }
+  
+  /* Success message */
+  .success-container .success-message {
+    font-size: 1.5em;
+    color: #28a745; /* Green color for success */
+  }
+
+  

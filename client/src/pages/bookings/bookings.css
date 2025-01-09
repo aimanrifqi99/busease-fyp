@@ -1,0 +1,155 @@
+/* src/pages/bookings/bookings.css */
+
+.userBookings {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding-top: 75px;
+  margin-bottom: 10px;
+}
+
+h2 {
+  text-align: center;
+  color: #003366;
+  margin-bottom: 30px;
+}
+
+.bookingItem {
+  background-color: #f9f9f9;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  position: relative; /* Allows positioning of elements like the status label */
+}
+
+/* Booking Status Label */
+.bookingStatus {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #fff;
+  text-transform: uppercase;
+  z-index: 10; /* Ensure it stays above other elements */
+}
+
+/* Completed Booking Style */
+.status-completed {
+  background-color: #f0ad4e; 
+}
+
+/* Ongoing Booking Style */
+.status-ongoing {
+  background-color: #4CAF50;
+}
+
+/* Cancelled Booking Style */
+.status-cancelled {
+  background-color: #ff4d4d; 
+}
+
+.bookingItem h3 {
+  font-size: 18px;
+  color: #003366;
+  margin-bottom: 10px;
+}
+
+.bookingItem p {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.backButton {
+  background-color: #003366;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  display: block; /* Center the button */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.backButton:hover {
+  background-color: #0055aa;
+}
+
+p.noBookings {
+  text-align: center;
+  font-size: 18px;
+  color: #555;
+  margin-top: 20px;
+}
+
+.bookingDate {
+  font-size: 12px;        
+  color: gray;            
+  position: absolute;     
+  right: 10px;            
+  bottom: 10px;           
+  text-align: right;     
+}
+
+/* Cancel Booking Button */
+.cancelButton {
+  margin-top: 10px;
+  padding: 8px 12px;
+  background-color: #dc3545; /* Red */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cancelButton:hover {
+  background-color: #c82333; /* Darker red */
+}
+
+.mapContainer {
+  position: absolute;
+  top: 75px; 
+  right: 10px;
+  width: 170px; 
+  height: 190px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 5px;
+}
+
+.viewRouteLabel {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+}
+
+.mapButton {
+  width: 90%;
+  height: 90%;
+  background-color: transparent;
+  background-image: url('/src/images/imagemap.jpg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: none;
+  cursor: pointer;
+}
+
+.mapButton:hover {
+  opacity: 0.8;
+}

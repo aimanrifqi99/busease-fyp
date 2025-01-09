@@ -1,0 +1,195 @@
+.listContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  overflow: visible;
+  padding-top: 65px;
+}
+
+.listWrapper {
+  width: 100%;
+  max-width: 1024px;
+  display: flex;
+  gap: 20px;
+  overflow: visible;
+}
+
+.listSearch {
+  flex: 1;
+  background-color: rgb(160, 160, 160);
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 20px;
+  height: fit-content;
+  overflow: visible;
+  z-index: 2;
+}
+
+.lsItem {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.lsItem label {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.linkautosuggestContainer {
+  position: relative;
+}
+
+.linkautosuggestInput {
+  width: 100%;
+  height: 30px;
+  padding: 10px;
+  font-size: 14px;
+  border: none;
+  box-sizing: border-box;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  color: black;
+}
+
+.linkautosuggestInput:focus {
+  outline: none;
+  border: none;
+}
+
+.linkautosuggestSuggestionsContainer {
+  display: none;
+}
+
+.linkautosuggestSuggestionsContainerOpen {
+  display: block;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  max-height: 208px;
+  overflow-y: auto;
+  z-index: 9999;
+}
+
+.linkautosuggestSuggestionsList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.linkautosuggestSuggestion {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.linkautosuggestSuggestionHighlighted {
+  background-color: #ddd;
+}
+
+.datePickerPopper {
+  z-index: 9999;
+}
+
+.datePickerInput {
+  width: 133%;
+  height: 30px;
+  padding: 10px;
+  font-size: 14px;
+  border: none;
+  box-sizing: border-box;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  color: black;
+}
+
+.datePickerInput:focus {
+  outline: none;
+}
+
+/* Styles for the checkbox */
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #333;
+}
+
+.checkboxInput {
+  margin-right: 10px;
+}
+
+/* Updated search button styles */
+.searchButton {
+  width: 100%;
+  padding: 12px;
+  background-color: #0071c2;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+.searchButton:hover {
+  background-color: #005f9e;
+}
+
+.listResult {
+  flex: 3;
+}
+
+/* Additional styles for error and loading messages */
+.errorMessage {
+  color: red;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.loadingMessage {
+  font-style: italic;
+  margin-top: 20px;
+}
+
+.noResultsMessage {
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.amenitiesCheckboxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.amenitiesCheckboxes label {
+  display: flex;
+  align-items: center;
+  background-color: #e6e6e6;
+  padding: 8px 12px;
+  border-radius: 15px;
+  font-size: 12px;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.amenitiesCheckboxes label:hover {
+  background-color: #ccc;
+}
+
+.amenitiesCheckboxes input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+.amenitiesCheckboxes input[type="checkbox"]:checked + label {
+  background-color: #0071c2;
+  color: white;
+}

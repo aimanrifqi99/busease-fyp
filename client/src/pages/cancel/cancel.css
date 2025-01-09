@@ -1,0 +1,56 @@
+/* cancel.css */
+
+/* Main container styling */
+.cancel-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Header styling */
+  .cancel-container h1 {
+    font-size: 2em;
+    color: #dc3545; /* Red color to indicate cancellation */
+    margin-bottom: 10px;
+  }
+  
+  /* Paragraph styling */
+  .cancel-container p {
+    font-size: 1.1em;
+    color: #6c757d;
+    margin-bottom: 20px;
+    max-width: 400px;
+  }
+  
+  /* Button styling */
+  .cancel-container button {
+    background-color: #007bff; /* Primary blue for retry */
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Hover effect for buttons */
+  .cancel-container button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Styling for the "Back to Home" button */
+  .cancel-container button:last-of-type {
+    background-color: #6c757d; /* Grey for "Back to Home" */
+  }
+  
+  .cancel-container button:last-of-type:hover {
+    background-color: #5a6268;
+  }
+  

@@ -1,0 +1,36 @@
+{
+  "name": "busease",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google-ai/generativelanguage": "^2.7.0",
+    "@google/generative-ai": "^0.21.0",
+    "@googlemaps/google-maps-services-js": "^3.4.0",
+    "axios": "^1.7.7",
+    "bcryptjs": "^2.4.3",
+    "chrono-node": "^2.7.7",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "google-auth-library": "^9.14.2",
+    "google-distance-matrix": "^1.1.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.9.0",
+    "mongoose": "^8.7.0",
+    "nodemailer": "^6.9.15",
+    "nodemon": "^3.1.7",
+    "pdfkit": "^0.15.0",
+    "string-similarity": "^4.0.4",
+    "stripe": "^17.2.0",
+    "uuid": "^10.0.0"
+  }
+}

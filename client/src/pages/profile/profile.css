@@ -1,0 +1,154 @@
+/* Layout */
+.profilePage .profileCard {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background: #fff;
+  padding-top: 70px
+}
+
+.profilePage .profileCard {
+  text-align: center;
+  background: #f9f9f9;
+}
+
+/* Title */
+.profilePage .profileTitle {
+  font-size: 26px;
+  color: #003366;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+/* Profile Picture */
+.profilePage .profilePic {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #003366;
+}
+
+.profilePage .imageUploadSection {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.profilePage .uploadIcon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  padding: 5px;
+  cursor: pointer;
+}
+
+/* Editable Form */
+.profilePage .profileForm {
+  margin: 0 auto 20px;
+  max-width: 400px;
+  text-align: left;
+}
+
+.profilePage .formGroup {
+  margin-bottom: 15px;
+}
+
+.profilePage .formLabel {
+  display: block;
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.profilePage input {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+  color: #003366;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.profilePage input:focus {
+  border-color: #003366;
+  outline: none;
+}
+
+/* Info Section */
+.profilePage .profileInfo {
+  margin-top: 20px;
+  text-align: left;
+}
+
+.profilePage .infoItem {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  margin-bottom: 10px;
+  padding-left: 100px;
+  padding-right: 90px;
+
+}
+
+.profilePage .infoLabel {
+  font-weight: bold;
+  color: #555;
+}
+
+.profilePage .infoValue {
+  color: #003366;
+}
+
+/* Buttons */
+.profilePage .saveButton {
+  padding: 8px 8px;
+  background: #6e777f;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.profilePage .saveButton:hover {
+  background: #0055aa;
+}
+
+.profilePage .logoutButton {
+  margin-top: 20px;
+  background: #003366;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.profilePage .logoutButton:hover {
+  background: #0055aa;
+}
+
+/* Success and Error Messages */
+.profilePage .successMessage {
+  color: #28a745;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.profilePage .errorMessage {
+  color: #dc3545;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
