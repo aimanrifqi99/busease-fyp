@@ -35,10 +35,11 @@ app.use(cors({
   origin: [
     "http://localhost:3000", 
     "http://localhost:4000", 
-    "https://busease-fyp-client.onrender.com" // Add your deployed frontend URL
+    "https://busease-fyp-client.onrender.com",
+    "https://busease-fyp-client.onrender.com"
   ],
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Specify allowed HTTP methods
-  allowedHeaders: ["Content-Type", "Authorization"], // Specify allowed headers
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], 
+  allowedHeaders: ["Content-Type", "Authorization"], 
   credentials: true,
 }));
 
