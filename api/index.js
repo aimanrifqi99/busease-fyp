@@ -13,6 +13,7 @@ import cors from "cors";
 
 const app = express();
 dotenv.config();
+const port = process.env.PORT || 5000;
 
 // Connect to MongoDB
 const connect = async () => {
@@ -62,7 +63,7 @@ app.use((err, req, res, next) => {
 });
 
 // Start the server
-app.listen(5000, () => {
-  connect(); // Ensure MongoDB connects successfully
+app.listen(port, () => {
+  connect();
   console.log("Server running on port 5000");
 });

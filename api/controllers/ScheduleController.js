@@ -11,7 +11,7 @@ export const createSchedule = async (req, res, next) => {
         const savedSchedule = await newSchedule.save();
         res.status(200).json(savedSchedule);
     } catch (err) {
-        console.error("Error creating schedule:", err);  // Log detailed error
+        console.error("Error creating schedule:", err);  
         res.status(500).json({ message: "Error creating schedule", error: err.message });
     }
 };
