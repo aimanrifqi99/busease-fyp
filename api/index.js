@@ -32,9 +32,16 @@ mongoose.connection.on("disconnected", () => {
 
 // Middlewares
 app.use(cors({
-  origin: ["http://localhost:3000", "http://localhost:4000"],
+  origin: [
+    "http://localhost:3000", 
+    "http://localhost:4000", 
+    "https://busease-fyp-client.onrender.com" // Add your deployed frontend URL
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Specify allowed HTTP methods
+  allowedHeaders: ["Content-Type", "Authorization"], // Specify allowed headers
   credentials: true,
 }));
+
 app.use(cookieParser());
 app.use(express.json());
 
