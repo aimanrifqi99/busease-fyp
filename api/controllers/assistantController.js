@@ -500,6 +500,7 @@ export const assistantHandler = async (req, res) => {
       - For any question regarding a **lost ticket**, **seat modification**, or **payment refund**, be cautious and provide accurate responses based on company policy.
       - **If and only if you detect a MISS TYPED district, town, cities, state, any area in Malaysia please ask user to correct it.
       - There are separate algorithm to detect a place so If you find any place in malaysia ask them to put the better location because it is not available.
+      - if user ask for a step or anything please only give simple answer.
 
       User's Question: "${question}"
 
