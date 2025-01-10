@@ -461,7 +461,8 @@ export const assistantHandler = async (req, res) => {
         We provide users with up-to-date bus schedules, including departure and arrival times for different routes.
        
       - Cancellation Policy:
-        Cancellation can be done by clicking "Cancel booking" in "View Bookings" and also using the AI chatbot by typing "cancel booking"
+        Cancellation can be done by clicking "Cancel booking" in "View Bookings".
+        Cancellation can be done by using the AI chatbot by typing "cancel booking".
         Cancellation process is 24 hours and can be done anytime.
         Users can cancel their bookings up to 1 day before the departure date.
         Cancellation applies to the entire booking and cannot be done per seat.
