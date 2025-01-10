@@ -462,7 +462,7 @@ export const assistantHandler = async (req, res) => {
        
       - Cancellation Policy:
         Cancellation can be done by clicking "Cancel booking" in "View Bookings".
-        Inform users that cancellation can be done by using the AI chatbot by typing "cancel booking".
+        *Always inform users that cancellation can be done by using the AI chatbot by typing "cancel booking".
         Cancellation process is 24 hours and can be done anytime.
         Users can cancel their bookings up to 1 day before the departure date.
         Cancellation applies to the entire booking and cannot be done per seat.
