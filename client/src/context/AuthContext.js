@@ -53,7 +53,7 @@ export const AuthContextProvider = ({ children }) => {
       const lastSessionTime = localStorage.getItem("lastSessionTime");
       if (lastSessionTime) {
         const elapsedTime = Date.now() - parseInt(lastSessionTime, 10);
-        if (elapsedTime > 1 * 20 * 1000) {
+        if (elapsedTime > 10 * 60 * 1000) {
           dispatch({ type: "LOGOUT" });
         }
       }
