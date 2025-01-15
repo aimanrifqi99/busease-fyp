@@ -1,42 +1,41 @@
-// AuthContext.js
-import { createContext, useEffect, useReducer } from 'react';
+import { createContext, useEffect, useReducer } from "react";
 
 const INITIAL_STATE = {
-  user: JSON.parse(localStorage.getItem('user')) || null,  // Fetch user from localStorage
+  user: JSON.parse(localStorage.getItem("user")) || null,
   loading: false,
-  error: null, 
+  error: null,
 };
 
 export const AuthContext = createContext(INITIAL_STATE);
 
 const AuthReducer = (state, action) => {
   switch (action.type) {
-    case 'LOGIN_START':
+    case "LOGIN_START":
       return {
         user: null,
         loading: true,
-        error: null, 
+        error: null,
       };
-    case 'LOGIN_SUCCESS':
-      localStorage.setItem('user', JSON.stringify(action.payload));
+    case "LOGIN_SUCCESS":
+      localStorage.setItem("user", JSON.stringify(action.payload));
       return {
         user: action.payload,
         loading: false,
-        error: null, 
+        error: null,
       };
-    case 'LOGIN_FAILURE':
+    case "LOGIN_FAILURE":
       return {
         user: null,
         loading: false,
-        error: action.payload, 
+        error: action.payload,
       };
-    case 'LOGOUT':
-      localStorage.removeItem('user');
-      localStorage.removeItem('access_token'); 
+    case "LOGOUT":
+      localStorage.removeItem("user");
+      localStorage.removeItem("lastSessionTime");
       return {
         user: null,
         loading: false,
-        error: null, 
+        error: null,
       };
     default:
       return state;
@@ -47,43 +46,38 @@ export const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE);
 
   useEffect(() => {
-    if (state.user) {
-      localStorage.setItem('user', JSON.stringify(state.user));
-    }
-  }, [state.user]);
-
-  useEffect(() => {
     if (!state.user) return;
 
-    const INACTIVITY_TIME_LIMIT = 1 * 10 * 1000;
-    let logoutTimer;
-
-    const resetInactivityTimeout = () => {
-      if (logoutTimer) clearTimeout(logoutTimer);
-      logoutTimer = setTimeout(() => {
-        dispatch({ type: 'LOGOUT' });
-        alert('You have been logged out due to inactivity.');
-      }, INACTIVITY_TIME_LIMIT);
+    // Check if the tab was closed for more than 10 minutes
+    const checkSessionExpiration = () => {
+      const lastSessionTime = localStorage.getItem("lastSessionTime");
+      if (lastSessionTime) {
+        const elapsedTime = Date.now() - parseInt(lastSessionTime, 10);
+        if (elapsedTime > 10 * 60 * 1000) {
+          dispatch({ type: "LOGOUT" });
+        }
+      }
     };
 
-    // Listen for user activity
-    window.addEventListener('mousemove', resetInactivityTimeout);
-    window.addEventListener('keypress', resetInactivityTimeout);
-    window.addEventListener('click', resetInactivityTimeout);
-    window.addEventListener('scroll', resetInactivityTimeout);
+    checkSessionExpiration();
 
-    // Set initial timeout
-    resetInactivityTimeout();
+    // Set up event listener for tab closing
+    const handleTabClose = () => {
+      localStorage.setItem("lastSessionTime", Date.now().toString());
+    };
+
+    window.addEventListener("beforeunload", handleTabClose);
 
     return () => {
-      // Cleanup event listeners and timeout
-      window.removeEventListener('mousemove', resetInactivityTimeout);
-      window.removeEventListener('keypress', resetInactivityTimeout);
-      window.removeEventListener('click', resetInactivityTimeout);
-      window.removeEventListener('scroll', resetInactivityTimeout);
-      clearTimeout(logoutTimer);
+      window.removeEventListener("beforeunload", handleTabClose);
     };
   }, [state.user, dispatch]);
+
+  useEffect(() => {
+    if (state.user) {
+      localStorage.setItem("user", JSON.stringify(state.user));
+    }
+  }, [state.user]);
 
   return (
     <AuthContext.Provider
