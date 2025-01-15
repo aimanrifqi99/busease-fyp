@@ -60,8 +60,11 @@ const Register = () => {
         username: credentials.username,
         password: credentials.password,
       });
-      localStorage.setItem("access_token", loginRes.data.token);
-      dispatch({ type: "LOGIN_SUCCESS", payload: loginRes.data.details });
+      const userData = {
+        ...loginRes.data.details,
+        token: loginRes.data.token,
+      };
+      dispatch({ type: "LOGIN_SUCCESS", payload: userData });
 
       // Navigate based on where the user came from
       if (location.state?.fromLogin) {

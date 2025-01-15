@@ -1,4 +1,4 @@
-// src/models/ScheduleModel.js
+//ScheduleModel.js
 import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
