@@ -52,6 +52,39 @@ export const AuthContextProvider = ({ children }) => {
     }
   }, [state.user]);
 
+  useEffect(() => {
+    if (!state.user) return;
+
+    const INACTIVITY_TIME_LIMIT = 1 * 10 * 1000;
+    let logoutTimer;
+
+    const resetInactivityTimeout = () => {
+      if (logoutTimer) clearTimeout(logoutTimer);
+      logoutTimer = setTimeout(() => {
+        dispatch({ type: 'LOGOUT' });
+        alert('You have been logged out due to inactivity.');
+      }, INACTIVITY_TIME_LIMIT);
+    };
+
+    // Listen for user activity
+    window.addEventListener('mousemove', resetInactivityTimeout);
+    window.addEventListener('keypress', resetInactivityTimeout);
+    window.addEventListener('click', resetInactivityTimeout);
+    window.addEventListener('scroll', resetInactivityTimeout);
+
+    // Set initial timeout
+    resetInactivityTimeout();
+
+    return () => {
+      // Cleanup event listeners and timeout
+      window.removeEventListener('mousemove', resetInactivityTimeout);
+      window.removeEventListener('keypress', resetInactivityTimeout);
+      window.removeEventListener('click', resetInactivityTimeout);
+      window.removeEventListener('scroll', resetInactivityTimeout);
+      clearTimeout(logoutTimer);
+    };
+  }, [state.user, dispatch]);
+
   return (
     <AuthContext.Provider
       value={{
