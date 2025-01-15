@@ -5,19 +5,34 @@ import Navbar from "../../components/navbar/Navbar";
 import SearchItem from "../../components/searchItem/SearchItem";
 import DatePicker from "react-datepicker";
 import { SearchContext } from "../../context/SearchContext";
-import Autosuggest from 'react-autosuggest';
+import Autosuggest from "react-autosuggest";
 import "react-datepicker/dist/react-datepicker.css";
 import "./list.css";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
 const cities = [
-  'Kuala Lumpur (Tbs)', 'George Town (Penang Sentral)', 'Ipoh (Terminal Amanjaya)', 'Johor Bahru (Jb Sentral)',
-  'Shah Alam (Terminal 17)', 'Seremban (Terminal One)', 'Alor Setar (Terminal Shahab Perdana)', 'Kuala Terengganu (Terminal Bas Mbkt)',
-  'Kota Bharu (Terminal Bas Kota Bharu)', 'Kuantan (Kuantan Sentral)', 'Kangar (Terminal Bas Kangar)', 'Malacca City (Melaka Sentral)'
+  "Kuala Lumpur (Tbs)",
+  "George Town (Penang Sentral)",
+  "Ipoh (Terminal Amanjaya)",
+  "Johor Bahru (Jb Sentral)",
+  "Shah Alam (Terminal 17)",
+  "Seremban (Terminal One)",
+  "Alor Setar (Terminal Shahab Perdana)",
+  "Kuala Terengganu (Terminal Bas Mbkt)",
+  "Kota Bharu (Terminal Bas Kota Bharu)",
+  "Kuantan (Kuantan Sentral)",
+  "Kangar (Terminal Bas Kangar)",
+  "Malacca City (Melaka Sentral)",
 ];
 
-const availableAmenities = ['WiFi', 'Air Conditioning', 'Restroom', 'Reclining Seats', 'USB Charging Ports'];
+const availableAmenities = [
+  "WiFi",
+  "Air Conditioning",
+  "Restroom",
+  "Reclining Seats",
+  "USB Charging Ports",
+];
 
 const List = () => {
   const { origin, destination, date, dispatch } = useContext(SearchContext);
@@ -29,51 +44,61 @@ const List = () => {
   const [originSuggestions, setOriginSuggestions] = useState([]);
   const [destinationSuggestions, setDestinationSuggestions] = useState([]);
   const [sortByPrice, setSortByPrice] = useState(false);
-  const [sortByDuration, setSortByDuration] = useState(false); // New state for sorting by duration
+  const [sortByDuration, setSortByDuration] = useState(false);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [selectedAmenities, setSelectedAmenities] = useState([]);
 
+  // Helper function to calculate the number of available seats
+  const getAvailableSeats = (schedule) => {
+    if (!schedule.seatNumbers) return 0;
+    return schedule.seatNumbers.filter((seat) => !seat.isBooked).length;
+  };
+
   // Memoized function to fetch schedules
-  const fetchSchedules = useCallback(async (searchOrigin, searchDestination, searchDate) => {
-    setLoading(true);
-    setError(null);
-    try {
-      const formattedDate = formatISO(new Date(searchDate), { representation: 'date' });
+  const fetchSchedules = useCallback(
+    async (searchOrigin, searchDestination, searchDate) => {
+      setLoading(true);
+      setError(null);
+      try {
+        const formattedDate = formatISO(new Date(searchDate), {
+          representation: "date",
+        });
 
-      const query = {
-        origin: searchOrigin,
-        destination: searchDestination,
-        departureDate: formattedDate
-      };
+        const query = {
+          origin: searchOrigin,
+          destination: searchDestination,
+          departureDate: formattedDate,
+        };
 
-      if (selectedAmenities.length > 0) {
-        query.amenities = selectedAmenities.join(',');
+        if (selectedAmenities.length > 0) {
+          query.amenities = selectedAmenities.join(",");
+        }
+
+        const queryString = new URLSearchParams(query).toString();
+        const response = await fetch(`${API_URL}/api/schedules/?${queryString}`);
+
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status} ${response.statusText}`);
+        }
+
+        const result = await response.json();
+        setData(result);
+      } catch (err) {
+        setError(err.message);
+        setData([]);
+      } finally {
+        setLoading(false);
       }
-
-      const queryString = new URLSearchParams(query).toString();
-
-      const response = await fetch(`${API_URL}/api/schedules/?${queryString}`);
-
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status} ${response.statusText}`);
-      }
-
-      const result = await response.json();
-      setData(result);
-    } catch (err) {
-      setError(err.message);
-      setData([]);
-    } finally {
-      setLoading(false);
-    }
-  }, [selectedAmenities]);
+    },
+    [selectedAmenities]
+  );
 
   // Handle search button click
   const handleSearch = () => {
     if (!localOrigin || !localDestination || !localDate) {
-      alert('Please fill in the origin, destination, and date.');
+      alert("Please fill in the origin, destination, and date.");
       return;
     }
 
@@ -101,14 +126,10 @@ const List = () => {
 
   // Convert "Xh Ym" duration string to total minutes
   const durationToMinutes = (duration) => {
-    if (!duration) return Infinity; // If duration is undefined or empty, treat it as the longest duration
-  
-    const [hoursPart, minutesPart] = duration.split(' ');
-    
-    // Extract hours and minutes by removing non-numeric characters
-    const hours = parseInt(hoursPart.replace(/\D/g, ''), 10) || 0;
-    const minutes = parseInt(minutesPart.replace(/\D/g, ''), 10) || 0;
-    
+    if (!duration) return Infinity;
+    const [hoursPart, minutesPart] = duration.split(" ");
+    const hours = parseInt(hoursPart.replace(/\D/g, ""), 10) || 0;
+    const minutes = parseInt(minutesPart.replace(/\D/g, ""), 10) || 0;
     return hours * 60 + minutes;
   };
 
@@ -119,17 +140,20 @@ const List = () => {
       return [...data].sort((a, b) => a.price - b.price);
     }
     if (sortByDuration) {
-      return [...data].sort((a, b) => durationToMinutes(a.duration) - durationToMinutes(b.duration));
+      return [...data].sort(
+        (a, b) => durationToMinutes(a.duration) - durationToMinutes(b.duration)
+      );
     }
     return data;
   };
 
-  const getSuggestions = value => {
+  // Autosuggest functions
+  const getSuggestions = (value) => {
     const inputValue = value.trim().toLowerCase();
     const inputLength = inputValue.length;
-    return inputLength === 0 ? [] : cities.filter(city =>
-      city.toLowerCase().startsWith(inputValue)
-    );
+    return inputLength === 0
+      ? []
+      : cities.filter((city) => city.toLowerCase().startsWith(inputValue));
   };
 
   const onSuggestionsFetchRequested = ({ value }, isOrigin = true) => {
@@ -156,65 +180,80 @@ const List = () => {
         <div className="listWrapper">
           <div className="listSearch">
             <h1 className="lsTitle">Search</h1>
+            {/* Origin */}
             <div className="lsItem">
               <label>Origin</label>
               <Autosuggest
                 suggestions={originSuggestions}
-                onSuggestionsFetchRequested={({ value }) => onSuggestionsFetchRequested({ value }, true)}
+                onSuggestionsFetchRequested={({ value }) =>
+                  onSuggestionsFetchRequested({ value }, true)
+                }
                 onSuggestionsClearRequested={() => onSuggestionsClearRequested(true)}
-                getSuggestionValue={suggestion => suggestion}
-                renderSuggestion={suggestion => <div>{suggestion}</div>}
+                getSuggestionValue={(suggestion) => suggestion}
+                renderSuggestion={(suggestion) => <div>{suggestion}</div>}
                 inputProps={{
                   placeholder: "Enter origin",
                   value: localOrigin,
                   onChange: (e, { newValue }) => setLocalOrigin(newValue),
-                  className: "input linkautosuggestInput"
+                  className: "input linkautosuggestInput",
                 }}
                 theme={{
-                  container: 'linkautosuggestContainer',
-                  suggestionsContainer: 'linkautosuggestSuggestionsContainer',
-                  suggestionsContainerOpen: 'linkautosuggestSuggestionsContainerOpen',
-                  suggestionsList: 'linkautosuggestSuggestionsList',
-                  suggestion: 'linkautosuggestSuggestion',
-                  suggestionHighlighted: 'linkautosuggestSuggestionHighlighted'
+                  container: "linkautosuggestContainer",
+                  suggestionsContainer: "linkautosuggestSuggestionsContainer",
+                  suggestionsContainerOpen:
+                    "linkautosuggestSuggestionsContainerOpen",
+                  suggestionsList: "linkautosuggestSuggestionsList",
+                  suggestion: "linkautosuggestSuggestion",
+                  suggestionHighlighted: "linkautosuggestSuggestionHighlighted",
                 }}
               />
             </div>
+
+            {/* Destination */}
             <div className="lsItem">
               <label>Destination</label>
               <Autosuggest
                 suggestions={destinationSuggestions}
-                onSuggestionsFetchRequested={({ value }) => onSuggestionsFetchRequested({ value }, false)}
-                onSuggestionsClearRequested={() => onSuggestionsClearRequested(false)}
-                getSuggestionValue={suggestion => suggestion}
-                renderSuggestion={suggestion => <div>{suggestion}</div>}
+                onSuggestionsFetchRequested={({ value }) =>
+                  onSuggestionsFetchRequested({ value }, false)
+                }
+                onSuggestionsClearRequested={() =>
+                  onSuggestionsClearRequested(false)
+                }
+                getSuggestionValue={(suggestion) => suggestion}
+                renderSuggestion={(suggestion) => <div>{suggestion}</div>}
                 inputProps={{
                   placeholder: "Enter destination",
                   value: localDestination,
                   onChange: (e, { newValue }) => setLocalDestination(newValue),
-                  className: "input linkautosuggestInput"
+                  className: "input linkautosuggestInput",
                 }}
                 theme={{
-                  container: 'linkautosuggestContainer',
-                  suggestionsContainer: 'linkautosuggestSuggestionsContainer',
-                  suggestionsContainerOpen: 'linkautosuggestSuggestionsContainerOpen',
-                  suggestionsList: 'linkautosuggestSuggestionsList',
-                  suggestion: 'linkautosuggestSuggestion',
-                  suggestionHighlighted: 'linkautosuggestSuggestionHighlighted'
+                  container: "linkautosuggestContainer",
+                  suggestionsContainer: "linkautosuggestSuggestionsContainer",
+                  suggestionsContainerOpen:
+                    "linkautosuggestSuggestionsContainerOpen",
+                  suggestionsList: "linkautosuggestSuggestionsList",
+                  suggestion: "linkautosuggestSuggestion",
+                  suggestionHighlighted: "linkautosuggestSuggestionHighlighted",
                 }}
               />
             </div>
+
+            {/* Departure Date */}
             <div className="lsItem">
               <label>Departure Date</label>
               <DatePicker
                 selected={localDate}
                 onChange={(date) => setLocalDate(date)}
-                dateFormat="MM/dd/yyyy"
+                dateFormat="dd/MM/yyyy"
                 className="datePickerInput"
                 popperClassName="datePickerPopper"
                 portalId="root-portal"
               />
             </div>
+
+            {/* Amenities */}
             <div className="lsItem">
               <label>Amenities</label>
               <div className="amenitiesCheckboxes">
@@ -226,9 +265,14 @@ const List = () => {
                       checked={selectedAmenities.includes(amenity)}
                       onChange={(e) => {
                         if (e.target.checked) {
-                          setSelectedAmenities([...selectedAmenities, amenity]);
+                          setSelectedAmenities([
+                            ...selectedAmenities,
+                            amenity,
+                          ]);
                         } else {
-                          setSelectedAmenities(selectedAmenities.filter(a => a !== amenity));
+                          setSelectedAmenities(
+                            selectedAmenities.filter((a) => a !== amenity)
+                          );
                         }
                       }}
                     />
@@ -237,7 +281,8 @@ const List = () => {
                 ))}
               </div>
             </div>
-            {/* Sort by price or shortest duration */}
+
+            {/* Sort By Options */}
             <div className="lsItem">
               <label className="checkboxLabel">
                 <input
@@ -245,7 +290,7 @@ const List = () => {
                   checked={sortByPrice}
                   onChange={(e) => {
                     setSortByPrice(e.target.checked);
-                    setSortByDuration(false); // Reset duration sorting
+                    setSortByDuration(false);
                   }}
                   className="checkboxInput"
                 />
@@ -259,28 +304,46 @@ const List = () => {
                   checked={sortByDuration}
                   onChange={(e) => {
                     setSortByDuration(e.target.checked);
-                    setSortByPrice(false); // Reset price sorting
+                    setSortByPrice(false);
                   }}
                   className="checkboxInput"
                 />
                 Sort by shortest duration
               </label>
             </div>
-            <button onClick={handleSearch} className="searchButton">Search</button>
+
+            <button onClick={handleSearch} className="searchButton">
+              Search
+            </button>
           </div>
+
+          {/* Results */}
           <div className="listResult">
             {submitted && (!localOrigin || !localDestination || !localDate) ? (
-              <div className="errorMessage">Error: Missing search parameters.</div>
+              <div className="errorMessage">
+                Error: Missing search parameters.
+              </div>
             ) : loading ? (
               <div className="loadingMessage">Loading...</div>
             ) : error ? (
-              <div className="errorMessage">Error loading schedules: {error}</div>
+              <div className="errorMessage">
+                Error loading schedules: {error}
+              </div>
             ) : (
-              sortedData()?.length > 0 ? (
-                sortedData().map((item) => <SearchItem item={item} key={item._id} />)
-              ) : (
-                <div className="noResultsMessage">No available buses.</div>
-              )
+              (() => {
+                // Filter out schedules with 0 available seats
+                const finalData = sortedData().filter(
+                  (item) => getAvailableSeats(item) > 0
+                );
+
+                return finalData.length > 0 ? (
+                  finalData.map((item) => (
+                    <SearchItem item={item} key={item._id} />
+                  ))
+                ) : (
+                  <div className="noResultsMessage">No available buses.</div>
+                );
+              })()
             )}
           </div>
         </div>

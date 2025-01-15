@@ -1,24 +1,32 @@
-// src/components/header/Header.jsx
 import React, { useContext, useState } from "react";
 import { faCalendarDays, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./header.css";
-import DatePicker from "react-datepicker"; 
-import "react-datepicker/dist/react-datepicker.css"; 
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from "react-router-dom";
 import { SearchContext } from "../../context/SearchContext";
-import Autosuggest from 'react-autosuggest'; 
+import Autosuggest from "react-autosuggest";
 
 const cities = [
-  'Kuala Lumpur (Tbs)', 'George Town (Penang Sentral)', 'Ipoh (Terminal Amanjaya)', 'Johor Bahru (Jb Sentral)',
-  'Shah Alam (Terminal 17)', 'Seremban (Terminal One)', 'Alor Setar (Terminal Shahab Perdana)', 'Kuala Terengganu (Terminal Bas Mbkt)',
-  'Kota Bharu (Terminal Bas Kota Bharu)', 'Kuantan (Kuantan Sentral)', 'Kangar (Terminal Bas Kangar)', 'Malacca City (Melaka Sentral)'
+  "Kuala Lumpur (Tbs)",
+  "George Town (Penang Sentral)",
+  "Ipoh (Terminal Amanjaya)",
+  "Johor Bahru (Jb Sentral)",
+  "Shah Alam (Terminal 17)",
+  "Seremban (Terminal One)",
+  "Alor Setar (Terminal Shahab Perdana)",
+  "Kuala Terengganu (Terminal Bas Mbkt)",
+  "Kota Bharu (Terminal Bas Kota Bharu)",
+  "Kuantan (Kuantan Sentral)",
+  "Kangar (Terminal Bas Kangar)",
+  "Malacca City (Melaka Sentral)",
 ];
 
 const Header = ({ type }) => {
   const [origin, setOrigin] = useState("");
   const [destination, setDestination] = useState("");
-  const [date, setDate] = useState(new Date()); 
+  const [date, setDate] = useState(new Date());
   const [originSuggestions, setOriginSuggestions] = useState([]);
   const [destinationSuggestions, setDestinationSuggestions] = useState([]);
 
@@ -27,25 +35,20 @@ const Header = ({ type }) => {
 
   const getSuggestions = (value) => {
     const inputValue = value.trim().toLowerCase();
-    const inputLength = inputValue.length;
-
-    return inputLength === 0 ? [] : cities.filter(city =>
-      city.toLowerCase().startsWith(inputValue)
-    );
+    return inputValue.length === 0
+      ? []
+      : cities.filter((city) => city.toLowerCase().startsWith(inputValue));
   };
 
   const handleSearch = () => {
     if (!origin || !destination || !date) {
-      alert('Please fill in the origin, destination, and date.');
+      alert("Please fill in the origin, destination, and date.");
       return;
     }
-  
-    const searchData = { origin, destination, date: date.toISOString() };
-    
-    // Update context
-    dispatch({ type: "NEW_SEARCH", payload: searchData });
-    
-    // Navigate to list page
+    dispatch({
+      type: "NEW_SEARCH",
+      payload: { origin, destination, date: date.toISOString() },
+    });
     navigate("/schedules");
   };
 
@@ -53,28 +56,29 @@ const Header = ({ type }) => {
     <div className="header">
       <div className={type === "list" ? "headerContainer listMode" : "headerContainer"}>
         <div className="headerSearch">
-          
           {/* Origin Field */}
           <div className="headerSearchItem">
             <FontAwesomeIcon icon={faMapMarkerAlt} className="headerIcon" />
             <Autosuggest
               suggestions={originSuggestions}
-              onSuggestionsFetchRequested={({ value }) => setOriginSuggestions(getSuggestions(value))}
+              onSuggestionsFetchRequested={({ value }) =>
+                setOriginSuggestions(getSuggestions(value))
+              }
               onSuggestionsClearRequested={() => setOriginSuggestions([])}
-              getSuggestionValue={(suggestion) => suggestion}
-              renderSuggestion={(suggestion) => <div>{suggestion}</div>}
+              getSuggestionValue={(s) => s}
+              renderSuggestion={(s) => <div>{s}</div>}
               inputProps={{
                 placeholder: "Origin",
                 value: origin,
                 onChange: (e, { newValue }) => setOrigin(newValue),
-                className: "headerSearchInput autosuggestInput"
+                className: "headerSearchInput autosuggestInput",
               }}
               theme={{
-                container: 'headerAutosuggestContainer',
-                suggestionsContainer: 'headerAutosuggestSuggestionsContainer',
-                suggestionsList: 'headerAutosuggestSuggestionsList',
-                suggestion: 'headerAutosuggestSuggestion',
-                suggestionHighlighted: 'linkautosuggestSuggestionHighlighted'
+                container: "headerAutosuggestContainer",
+                suggestionsContainer: "headerAutosuggestSuggestionsContainer",
+                suggestionsList: "headerAutosuggestSuggestionsList",
+                suggestion: "headerAutosuggestSuggestion",
+                suggestionHighlighted: "linkautosuggestSuggestionHighlighted",
               }}
             />
           </div>
@@ -84,22 +88,24 @@ const Header = ({ type }) => {
             <FontAwesomeIcon icon={faMapMarkerAlt} className="headerIcon" />
             <Autosuggest
               suggestions={destinationSuggestions}
-              onSuggestionsFetchRequested={({ value }) => setDestinationSuggestions(getSuggestions(value))}
+              onSuggestionsFetchRequested={({ value }) =>
+                setDestinationSuggestions(getSuggestions(value))
+              }
               onSuggestionsClearRequested={() => setDestinationSuggestions([])}
-              getSuggestionValue={(suggestion) => suggestion}
-              renderSuggestion={(suggestion) => <div>{suggestion}</div>}
+              getSuggestionValue={(s) => s}
+              renderSuggestion={(s) => <div>{s}</div>}
               inputProps={{
                 placeholder: "Destination",
                 value: destination,
                 onChange: (e, { newValue }) => setDestination(newValue),
-                className: "headerSearchInput autosuggestInput"
+                className: "headerSearchInput autosuggestInput",
               }}
               theme={{
-                container: 'headerAutosuggestContainer',
-                suggestionsContainer: 'headerAutosuggestSuggestionsContainer',
-                suggestionsList: 'headerAutosuggestSuggestionsList',
-                suggestion: 'headerAutosuggestSuggestion',
-                suggestionHighlighted: 'linkautosuggestSuggestionHighlighted'
+                container: "headerAutosuggestContainer",
+                suggestionsContainer: "headerAutosuggestSuggestionsContainer",
+                suggestionsList: "headerAutosuggestSuggestionsList",
+                suggestion: "headerAutosuggestSuggestion",
+                suggestionHighlighted: "linkautosuggestSuggestionHighlighted",
               }}
             />
           </div>
@@ -107,9 +113,13 @@ const Header = ({ type }) => {
           {/* Date Field */}
           <div className="headerSearchItem">
             <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
+            <label className="datePickerLabel" htmlFor="busDatePicker">
+              Bus Date
+            </label>
             <DatePicker
+              id="busDatePicker"
               selected={date}
-              onChange={(date) => setDate(date)}
+              onChange={(newDate) => setDate(newDate)}
               dateFormat="dd/MM/yyyy"
               className="headerSearchInput"
               popperClassName="datePickerPopper"

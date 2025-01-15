@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import "./footer.css"
+import "./footer.css";
 const API_URL = process.env.REACT_APP_API_URL;
 
 const Footer = () => {
@@ -9,67 +9,43 @@ const Footer = () => {
   const [conversationState, setConversationState] = useState({});
   const messagesEndRef = useRef(null);
 
-  // Scroll to bottom when messages change
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  // Function to handle API call and fetch AI response
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!question.trim()) return;
-  
-    // Immediately add the user's message to the conversation
-    setMessages(prevMessages => [
-      ...prevMessages,
-      { sender: 'user', text: question }
-    ]);
-  
-    setQuestion(""); // Clear the input immediately after submitting the question
-    setLoading(true); // Show loading state
-  
+    setMessages((prev) => [...prev, { sender: "user", text: question }]);
+    setQuestion("");
+    setLoading(true);
+
     try {
-      // Get userId from localStorage
       const user = JSON.parse(localStorage.getItem("user"));
       const userId = user ? user._id : null;
-  
-      // Send the user's question and conversation state to the backend API
       const apiResponse = await fetch(`${API_URL}/api/assistant`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question, userId, conversationState }),
       });
-  
-      if (!apiResponse.ok) {
-        throw new Error('Failed to fetch AI response');
-      }
-  
+      if (!apiResponse.ok) throw new Error("Failed to fetch AI response");
       const data = await apiResponse.json();
-  
-      // Update the conversation state if provided by the server
       if (data.conversationState) {
         setConversationState(data.conversationState);
       } else {
         setConversationState({});
       }
-  
-      // Add the AI's response to the messages state
-      setMessages(prevMessages => [
-        ...prevMessages,
-        { sender: 'assistant', text: data.response },
-      ]);
+      setMessages((prev) => [...prev, { sender: "assistant", text: data.response }]);
     } catch (error) {
       console.error("Error:", error);
-      setMessages(prevMessages => [
-        ...prevMessages,
-        { sender: 'assistant', text: "An error occurred. Please try again." },
+      setMessages((prev) => [
+        ...prev,
+        { sender: "assistant", text: "An error occurred. Please try again." },
       ]);
     } finally {
-      setLoading(false); // Ensure loading state is turned off in both success and error cases
+      setLoading(false);
     }
-  };  
+  };
 
   return (
     <div className="footer">
@@ -91,23 +67,24 @@ const Footer = () => {
                 </div>
               </div>
             )}
-            {messages.map((message, index) => (
-              <div key={index} className={`chatbot-message ${message.sender}`}>
-                {message.sender === 'assistant' ? (
+            {messages.map((m, i) => (
+              <div key={i} className={`chatbot-message ${m.sender}`}>
+                {m.sender === "assistant" ? (
                   <div className="chatbot-message-content">
                     <img
                       src="https://cdn-icons-png.flaticon.com/128/8943/8943377.png"
                       alt="Chatbot"
                       className="chatbot-avatar"
                     />
-                    <div className="message-text">
-                      <div dangerouslySetInnerHTML={{ __html: message.text.replace(/\n/g, '<br>') }} />
-                    </div>
+                    <div
+                      className="message-text"
+                      dangerouslySetInnerHTML={{ __html: m.text.replace(/\n/g, "<br>") }}
+                    />
                   </div>
                 ) : (
                   <div className="chatbot-message-content user-message">
                     <div className="message-text">
-                      {message.text.split('\n').map((line, idx) => (
+                      {m.text.split("\n").map((line, idx) => (
                         <p key={idx}>{line}</p>
                       ))}
                     </div>
@@ -123,16 +100,13 @@ const Footer = () => {
                     alt="Chatbot"
                     className="chatbot-avatar"
                   />
-                  <div className="message-text">
-                    Typing...
-                  </div>
+                  <div className="message-text">Typing...</div>
                 </div>
               </div>
             )}
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Form for user input */}
           <div className="chatbot-form">
             <form onSubmit={handleSubmit}>
               <input
@@ -143,7 +117,11 @@ const Footer = () => {
                 className="chatbot-input"
                 required
               />
-              <button type="submit" className="chatbot-submit-btn" disabled={loading || !question.trim()}>
+              <button
+                type="submit"
+                className="chatbot-submit-btn"
+                disabled={loading || !question.trim()}
+              >
                 Send
               </button>
             </form>

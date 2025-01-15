@@ -5,12 +5,10 @@ import "./home.css";
 
 const Home = () => {
   return (
-    <div>
+    <div className="homeContainer">
       <Navbar />
       <Header/>
-      <div className="homeContainer">
-        <Footer/>
-      </div>
+      <Footer/>
     </div>
   );
 };

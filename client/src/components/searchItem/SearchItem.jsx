@@ -1,3 +1,4 @@
+// src/components/searchItem/SearchItem.jsx
 import { useNavigate } from "react-router-dom";
 import "./searchItem.css";
 import { useContext, useState } from "react";
