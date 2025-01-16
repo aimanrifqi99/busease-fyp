@@ -30,13 +30,13 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
-
+  
     let imgUrl = "";
     if (file) {
       const data = new FormData();
       data.append("file", file);
       data.append("upload_preset", "upload"); // Cloudinary preset
-
+  
       try {
         const uploadRes = await axios.post(
           "https://api.cloudinary.com/v1_1/dhvb035xa/image/upload",
@@ -44,17 +44,17 @@ const Register = () => {
         );
         imgUrl = uploadRes.data.url;
       } catch (err) {
-        setError("Failed to upload image");
+        setError("Failed to upload the image. Please try again.");
         return;
       }
     }
-
+  
     const registerData = { ...credentials, img: imgUrl };
-
+  
     try {
       // Register the user
       await axios.post(`${API_URL}/api/auth/register`, registerData);
-
+  
       // Automatically log in after registering
       const loginRes = await axios.post(`${API_URL}/api/auth/login`, {
         username: credentials.username,
@@ -65,7 +65,7 @@ const Register = () => {
         token: loginRes.data.token,
       };
       dispatch({ type: "LOGIN_SUCCESS", payload: userData });
-
+  
       // Navigate based on where the user came from
       if (location.state?.fromLogin) {
         navigate(-2); // Go back two steps if coming from login
@@ -73,9 +73,19 @@ const Register = () => {
         navigate(-1); // Go back one step
       }
     } catch (err) {
-      setError(err.response?.data?.message || "Something went wrong");
+      if (err.response?.data?.message?.includes("E11000 duplicate key")) {
+        if (err.response.data.message.includes("username")) {
+          setError("The username is already taken. Please choose another.");
+        } else if (err.response.data.message.includes("email")) {
+          setError("The email is already in use. Please use a different email.");
+        } else {
+          setError("Duplicate entry detected. Please check your input.");
+        }
+      } else {
+        setError(err.response?.data?.message || "An unexpected error occurred. Please try again.");
+      }
     }
-  };
+  };  
 
   return (
     <div className="authPage">
