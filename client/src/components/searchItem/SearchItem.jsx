@@ -136,7 +136,7 @@ const SearchItem = ({ item }) => {
             View Seats
           </button>
           <div className="siMapContainer">
-            <div className="siViewRouteLabel">View Route</div>
+            <div className="siViewRouteLabel">View Route Map</div>
             <button
               onClick={handleClickMap}
               className="siMapButton"

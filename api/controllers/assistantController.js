@@ -156,7 +156,6 @@ export const assistantHandler = async (req, res) => {
     // Extract details
     const { foundCities, date, busName } = extractDetails(question, cities);
 
-    /*
     // Handle cancellation confirmation
     if (state.confirmCancel) {
       if (lowerCaseQuestion.includes('yes')) {
@@ -268,7 +267,7 @@ export const assistantHandler = async (req, res) => {
       });
       return res.json({ response: responseText });
     }
-      */
+    
 
     // Handle bus availability queries
     const isBusQuery =
