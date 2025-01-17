@@ -56,7 +56,6 @@ const BookingManagement = () => {
 
     return (
         <div className="bookingManagement">
-            <h2>Booking Management</h2>
             <table className="managementTable">
                 <thead>
                     <tr>

@@ -1,6 +1,4 @@
 /* ScheduleDetail.css */
-
-/* Container styling */
 .scheduleDetail {
     max-width: 800px;
     margin: 20px auto;
@@ -11,7 +9,6 @@
     background-color: #ffffff;
 }
 
-/* Heading styling */
 .scheduleDetail h2 {
     font-size: 26px;
     margin-bottom: 20px;
@@ -20,7 +17,6 @@
     text-align: center;
 }
 
-/* Label styling */
 .scheduleDetail label {
     display: block;
     margin-bottom: 15px;
@@ -28,7 +24,6 @@
     color: #444;
 }
 
-/* Input and textarea styling */
 .scheduleDetail input[type="text"],
 .scheduleDetail input[type="date"],
 .scheduleDetail input[type="number"],
@@ -52,7 +47,6 @@
     outline: none;
 }
 
-/* Image upload section styling */
 .imageUploadSection {
     display: flex;
     align-items: center;
@@ -85,7 +79,6 @@
     font-size: 20px;
 }
 
-/* Stops section styling */
 .stopsSection {
     margin-bottom: 20px;
 }
@@ -148,7 +141,6 @@
     background-color: #c82333;
 }
 
-/* Button group styling */
 .buttonGroup {
     display: flex;
     gap: 10px;

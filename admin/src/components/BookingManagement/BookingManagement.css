@@ -1,109 +1,25 @@
-/* Container styling */
-.bookingDetail {
-    max-width: 600px;
-    margin: 20px auto;
+.bookingManagement {
     padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    background-color: #ffffff;
 }
 
-/* Heading styling */
-.bookingDetail h2 {
-    font-size: 24px;
-    margin-bottom: 15px;
-    color: #333;
-    font-weight: bold; /* Added for better emphasis */
-    line-height: 1.2; /* Improved readability */
-}
-
-/* Label styling */
-.bookingDetail label {
-    display: block;
-    margin-bottom: 10px;
-    font-size: 16px; /* Ensures consistency */
-    color: #444; /* Slightly darker for better contrast */
-}
-
-/* Input styling */
-.bookingDetail input[type="text"],
-.bookingDetail input[type="date"],
-.bookingDetail input[type="number"],
-.bookingDetail select {
-    display: block;
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-sizing: border-box; /* Ensures consistent sizing */
-}
-
-.bookingDetail input[type="text"]:focus,
-.bookingDetail input[type="date"]:focus,
-.bookingDetail input[type="number"]:focus,
-.bookingDetail select:focus {
-    border-color: #007bff; /* Highlight input on focus */
-    outline: none; /* Removes default outline */
-}
-
-/* Button styling */
-.bookingDetail button {
-    margin-top: 15px;
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.bookingDetail button:hover {
-    background-color: #0056b3;
-}
-
-/* Styling for button group */
-.buttonGroup {
-    display: flex;
-    gap: 10px; /* Adds space between buttons */
-}
-
-/* Success message styling */
-.successMessage {
-    margin-bottom: 15px;
-    color: green;
-    font-weight: bold; /* Emphasizes the success message */
-}
-
-/* Error message styling */
-.errorMessage {
-    margin-bottom: 15px;
-    color: #f44336; /* Red color for errors */
-    font-weight: bold;
-}
-
-/* View button styling */
 .viewButton {
-    background-color: #2196F3; /* Blue color for View */
+    background-color: #2196F3;
 }
 
 .viewButton:hover {
     background-color: #0b7dda;
 }
 
-/* Cancel button styling */
 .bookingManagement .cancelButton {
-    background-color: #FFC107; /* Yellow */
+    background-color: #FFC107;
 }
 
 .bookingManagement .cancelButton:hover {
     background-color: #e0a800;
-}
+} 
 
-/* Delete button styling */
 .deleteButton {
-    background-color: #f44336; /* Red color for Delete */
+    background-color: #f44336;
 }
 
 .deleteButton:hover {

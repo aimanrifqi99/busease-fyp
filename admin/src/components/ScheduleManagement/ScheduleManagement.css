@@ -1,13 +1,5 @@
-/* src/pages/schedule/scheduleManagement.css */
 .scheduleManagement {
     padding: 20px;
-}
-
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
 }
 
 .addButton {
@@ -25,36 +17,18 @@
     background-color: #45a049;
 }
 
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+
 .managementTable {
     width: 100%;
     border-collapse: collapse;
-}
-
-.managementTable th, .managementTable td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-}
-
-.managementTable th {
-    background-color: #f2f2f2;
-}
-
-.managementTable tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-.managementTable tr:hover {
-    background-color: #ddd;
-}
-
-.managementTable td button {
-    margin-right: 5px;
-    padding: 5px 10px;
-    background-color: #2196F3;
-    color: white;
-    border: none;
-    cursor: pointer;
 }
 
 .managementTable td button:hover {

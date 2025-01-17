@@ -9,24 +9,21 @@
     background-color: #ffffff;
 }
 
-/* Heading styling */
 .bookingDetail h2 {
     font-size: 24px;
     margin-bottom: 15px;
     color: #333;
-    font-weight: bold; /* Added for better emphasis */
-    line-height: 1.2; /* Improved readability */
+    font-weight: bold; 
+    line-height: 1.2;
 }
 
-/* Label styling */
 .bookingDetail label {
     display: block;
     margin-bottom: 10px;
-    font-size: 16px; /* Ensures consistency */
-    color: #444; /* Slightly darker for better contrast */
+    font-size: 16px;
+    color: #444;
 }
 
-/* Input styling */
 .bookingDetail input[type="text"],
 .bookingDetail input[type="date"],
 .bookingDetail input[type="number"],
@@ -37,18 +34,17 @@
     margin-top: 5px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    box-sizing: border-box; /* Ensures consistent sizing */
+    box-sizing: border-box;
 }
 
 .bookingDetail input[type="text"]:focus,
 .bookingDetail input[type="date"]:focus,
 .bookingDetail input[type="number"]:focus,
 .bookingDetail select:focus {
-    border-color: #007bff; /* Highlight input on focus */
-    outline: none; /* Removes default outline */
+    border-color: #007bff;
+    outline: none;
 }
 
-/* Button styling */
 .bookingDetail button {
     margin-top: 15px;
     padding: 10px 15px;
@@ -63,22 +59,20 @@
     background-color: #0056b3;
 }
 
-/* Styling for button group */
 .buttonGroup {
     display: flex;
-    gap: 10px; /* Adds space between buttons */
+    gap: 10px; 
 }
 
-/* Success message styling */
+
 .successMessage {
     margin-bottom: 15px;
     color: green;
-    font-weight: bold; /* Emphasizes the success message */
+    font-weight: bold;
 }
 
-/* Error message styling */
 .errorMessage {
     margin-bottom: 15px;
-    color: #f44336; /* Red color for errors */
+    color: #f44336;
     font-weight: bold;
 }

@@ -1,4 +1,3 @@
-/* Container styling */
 .userDetail {
     max-width: 600px;
     margin: 20px auto;
@@ -9,21 +8,19 @@
     background-color: #ffffff;
 }
 
-/* Heading styling */
 .userDetail h2 {
     font-size: 24px;
     margin-bottom: 15px;
     color: #333;
-    font-weight: bold; /* Added for better emphasis */
-    line-height: 1.2; /* Improved readability */
+    font-weight: bold;
+    line-height: 1.2;
 }
 
-/* Label styling */
 .userDetail label {
     display: block;
     margin-bottom: 10px;
-    font-size: 16px; /* Ensures consistency */
-    color: #444; /* Slightly darker for better contrast */
+    font-size: 16px;
+    color: #444;
 }
 
 /* Input styling */
@@ -37,18 +34,17 @@
     margin-top: 5px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    box-sizing: border-box; /* Ensures consistent sizing */
+    box-sizing: border-box;
 }
 
 .userDetail input[type="text"]:focus,
 .userDetail input[type="email"]:focus,
 .userDetail input[type="tel"]:focus,
 .userDetail input[type="checkbox"]:focus {
-    border-color: #007bff; /* Highlight input on focus */
-    outline: none; /* Removes default outline */
+    border-color: #007bff;
+    outline: none;
 }
 
-/* Button styling */
 .userDetail button {
     margin-top: 15px;
     padding: 10px 15px;
@@ -63,15 +59,13 @@
     background-color: #0056b3;
 }
 
-/* Styling for button group */
 .buttonGroup {
     display: flex;
-    gap: 10px; /* Adds space between buttons */
+    gap: 10px;
 }
 
-/* Success message styling */
 .successMessage {
     margin-bottom: 15px;
     color: green;
-    font-weight: bold; /* Emphasizes the success message */
+    font-weight: bold;
 }
