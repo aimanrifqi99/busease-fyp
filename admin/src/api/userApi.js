@@ -1,8 +1,10 @@
 // apiClient.js
 import axios from 'axios';
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const apiClient = axios.create({
-    baseURL: `${API_URL}/api/bookings/api/users`,
+    baseURL: `${API_URL}/api/users`,
     withCredentials: true, 
 });
 
