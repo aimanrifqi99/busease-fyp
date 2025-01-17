@@ -36,7 +36,7 @@ app.use(cors({
     "http://localhost:3000", 
     "http://localhost:4000", 
     "https://busease-fyp-client.onrender.com",
-    "https://busease-fyp-client.onrender.com"
+    "https://busease-fyp-admin.onrender.com"
   ],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], 
   allowedHeaders: ["Content-Type", "Authorization"], 
