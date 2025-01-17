@@ -68,7 +68,7 @@ const Header = ({ type }) => {
               getSuggestionValue={(s) => s}
               renderSuggestion={(s) => <div>{s}</div>}
               inputProps={{
-                placeholder: "Origin",
+                placeholder: "Departure",
                 value: origin,
                 onChange: (e, { newValue }) => setOrigin(newValue),
                 className: "headerSearchInput autosuggestInput",
