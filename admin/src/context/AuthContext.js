@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (credentials) => {
       try {
-        const { data } = await axios.post('/auth/login', credentials);
+        const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, credentials);
 
         if (data.isAdmin) {
           const userData = {
