@@ -2,8 +2,8 @@
 import axios from 'axios';
 
 const apiClient = axios.create({
-    baseURL: 'http://localhost:5000/api/users',
-    withCredentials: true, // Keeps cookies, but JWT from localStorage must still be added
+    baseURL: `${API_URL}/api/bookings/api/users`,
+    withCredentials: true, 
 });
 
 // Add a request interceptor to include the Authorization header with the JWT

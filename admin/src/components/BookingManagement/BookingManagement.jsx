@@ -1,11 +1,11 @@
 // src/pages/booking/BookingManagement.jsx
 import React, { useEffect, useState } from 'react';
 import { getAllBookings, cancelBooking, deleteBooking } from '../../api/bookingApi';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
 import './BookingManagement.css';
 
 const BookingManagement = () => {
-    const navigate = useNavigate(); // Initialize useNavigate hook
+    const navigate = useNavigate(); 
     const [bookings, setBookings] = useState([]);
     const [error, setError] = useState(null);
 

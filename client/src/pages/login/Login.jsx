@@ -5,6 +5,7 @@ import { AuthContext } from "../../context/AuthContext";
 import "./login.css";
 
 const API_URL = process.env.REACT_APP_API_URL;
+const ADMIN_URL = process.env.REACT_APP_ADMIN_URL;
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
@@ -28,8 +29,14 @@ const Login = () => {
         `${API_URL}/api/auth/login`, credentials);
 
       // Combine user details and token in one payload
-      const userData = { ...res.data.details, token: res.data.token };
+      const userData = { ...res.data.details, isAdmin: res.data.isAdmin, token: res.data.token };
       dispatch({ type: "LOGIN_SUCCESS", payload: userData });
+      console.log("API_URL:", API_URL);
+      console.log("ADMIN_URL:", ADMIN_URL);
+      if (userData.isAdmin) {
+        window.location.href = process.env.REACT_APP_ADMIN_URL;
+        return;
+      }
 
       // Navigate based on where the user came from
       if (location.state?.fromRegister) {

@@ -8,8 +8,7 @@ const UserManagement = () => {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const navigate = useNavigate(); // Initialize useNavigate
-
+    const navigate = useNavigate();
     useEffect(() => {
         const fetchUsers = async () => {
             try {
@@ -36,7 +35,7 @@ const UserManagement = () => {
     };
 
     const handleView = (id) => {
-        navigate(`/user/${id}`); // Navigate to UserDetail page
+        navigate(`/user/${id}`);
     };
 
     if (loading) return <div>Loading users...</div>;

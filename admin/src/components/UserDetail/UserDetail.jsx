@@ -7,7 +7,7 @@ import DriveFolderUploadOutlinedIcon from '@mui/icons-material/DriveFolderUpload
 
 const UserDetail = () => {
     const { id } = useParams();
-    const navigate = useNavigate(); // Added useNavigate hook
+    const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [formData, setFormData] = useState({
@@ -89,7 +89,7 @@ const UserDetail = () => {
     };    
 
     const handleCancel = () => {
-        navigate(-1); // Navigate back to the previous page
+        navigate(-1);
     };
 
     if (loading) return <div>Loading user details...</div>;

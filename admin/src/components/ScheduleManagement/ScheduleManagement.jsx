@@ -1,6 +1,6 @@
 // src/pages/schedule/ScheduleManagement.jsx
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom'; 
 import { getSchedules, deleteSchedule } from '../../api/scheduleApi';
 import AddScheduleForm from '../AddScheduleForm/AddScheduleForm';
 import './ScheduleManagement.css';
@@ -23,7 +23,7 @@ const ScheduleManagement = () => {
     };
 
     const handleView = (id) => {
-        navigate(`/schedule/${id}`); // Navigate to the ScheduleDetail page
+        navigate(`/schedule/${id}`);
     };
 
     return (

@@ -1,11 +1,22 @@
-import React, { useState, useContext } from 'react';
+// admin/Login.jsx
+import React, { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import "./Login.css";
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const { login } = useContext(AuthContext);
+
+  const { user, login } = useContext(AuthContext);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user && user.token && user.isAdmin) {
+      navigate('/admin');
+    }
+  }, [user, navigate]);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -15,7 +26,7 @@ const Login = () => {
   return (
     <div className="login-page">
       <div className="login-container">
-        <h2>Login</h2>
+        <h2>Admin Login</h2>
         <form onSubmit={handleLogin}>
           <label>Username:</label>
           <input

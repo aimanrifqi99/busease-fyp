@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const bookingApiClient = axios.create({
-    baseURL: 'http://localhost:5000/api/bookings',
+    baseURL: `${API_URL}/api/bookings`,
     withCredentials: true, // Keeps cookies, but JWT from localStorage must still be added
 });
 

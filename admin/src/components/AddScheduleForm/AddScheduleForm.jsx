@@ -16,8 +16,8 @@ const AddScheduleForm = ({ onClose, onAdd }) => {
         desc: "",
         totalSeats: "",
         amenities: "",
-        seatNumbers: [], // Automatically generated based on totalSeats
-        stops: [], // Array for stops
+        seatNumbers: [],
+        stops: [],
     });
     const [file, setFile] = useState(null);
     const [error, setError] = useState(null);

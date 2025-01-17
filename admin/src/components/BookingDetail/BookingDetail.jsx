@@ -24,9 +24,9 @@ const BookingDetail = () => {
             try {
                 const { data } = await getBooking(id);
                 setFormData({
-                    user: data.user ? data.user._id : '', // Store the ID
+                    user: data.user ? data.user._id : '', 
                     username: data.user ? data.user.username : '',
-                    schedule: data.schedule ? data.schedule._id : '', // Store the ID
+                    schedule: data.schedule ? data.schedule._id : '',
                     seatNumbers: data.seatNumbers || [],
                     totalPrice: data.totalPrice || '',
                     bookingDate: data.bookingDate ? new Date(data.bookingDate).toISOString().split('T')[0] : '',
