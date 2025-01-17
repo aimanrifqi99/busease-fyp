@@ -8,15 +8,16 @@ const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const { user, login } = useContext(AuthContext);
+  //const { user, login } = useContext(AuthContext);
 
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (user && user.token && user.isAdmin) {
       navigate('/admin');
     }
-  }, [user, navigate]);
+  }, [user, navigate]);*/
+  const { login } = useContext(AuthContext);
 
   const handleLogin = (e) => {
     e.preventDefault();
