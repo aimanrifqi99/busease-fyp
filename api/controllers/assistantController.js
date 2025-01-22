@@ -1,9 +1,9 @@
 // assistantController.js
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import User from '../models/UserModel.js';
 import Booking from '../models/BookingModel.js';
 import Schedule from '../models/ScheduleModel.js';
 import * as chrono from 'chrono-node';
+import mongoose from 'mongoose';
 
 // 1) Capitalize each word's first letter
 const capitalize = (str) => {
@@ -195,41 +195,66 @@ export const assistantHandler = async (req, res) => {
         responseText = "Let me know if you need help with anything else!";
         state.awaitingBookingId = false;
         return res.json({ response: responseText, conversationState: state });
-      } else {
-        const bookingId = question.trim();
+      }
+    
+      // Check if user provided a non-empty input
+      if (!question.trim()) {
+        responseText = "You did not provide a Booking ID. Please enter a valid Booking ID, or reply \"no\" to stop the cancellation process.";
+        return res.json({ response: responseText, conversationState: state });
+      }
+    
+      const bookingId = question.trim();
+    
+      // ---- NEW CHECK FOR VALID MONGODB OBJECTID ----
+      if (!mongoose.Types.ObjectId.isValid(bookingId)) {
+        responseText = "Please provide a valid Booking ID to cancel. If you don't want to cancel anymore, please reply \"no\".";
+        return res.json({ response: responseText, conversationState: state });
+      }
+    
+      try {
         const bookingToCancel = await Booking.findOne({ 
-          _id: bookingId, user: userId, status: 'ongoing' 
+          _id: bookingId,
+          user: userId,
+          status: 'ongoing' 
         }).populate('schedule');
-
+    
         if (!bookingToCancel) {
           responseText = "Invalid Booking ID or you have no such booking. Please provide a valid Booking ID.";
           return res.json({ response: responseText, conversationState: state });
         }
-
+    
+        // Proceed with cancellation
         bookingToCancel.status = 'cancelled';
         await bookingToCancel.save();
-
+    
         const schedule = await Schedule.findById(bookingToCancel.schedule._id);
         bookingToCancel.seatNumbers.forEach((seatNumber) => {
           const seat = schedule.seatNumbers.find((s) => s.number === seatNumber);
           if (seat) seat.isBooked = false;
         });
         await schedule.save();
-
+    
         responseText = `Your booking with ID ${bookingId} for ${schedule.name} on ${formatDate(schedule.departureDate)} has been cancelled.`;
         state.awaitingBookingId = false;
+        return res.json({ response: responseText, conversationState: state });
+    
+      } catch (err) {
+        // If for some reason we still get an error, handle gracefully:
+        console.error("Error cancelling booking:", err.message);
+        responseText = "Something went wrong while cancelling your booking. Please try again.";
         return res.json({ response: responseText, conversationState: state });
       }
     }
 
     // Initiate booking cancellation
     if (
-      /\b(cancel|void|stop|end|refund)\s+(my|a)?\s*(booking|bookings|ticket|tickets|reservation|reservations|bus|buses|bas)\b/.test(lowerCaseQuestion) &&
+      /\b(cancel|void|stop|end|refund|revoke|delete|erase|remove|terminate|abort|discard|withdraw|drop|cease)\s+(my|a|the|this|that|these|those|any|all|current|existing|past|upcoming|latest|previous)?\s*(booking|bookings|ticket|tickets|reservation|reservations|bus|buses|bas|trip|trips|journey|journeys|schedule|schedules)\b/.test(lowerCaseQuestion)&&
       !state.awaitingBookingId &&
       !lowerCaseQuestion.includes('seat') &&
       !lowerCaseQuestion.includes('seats') &&
       !/\b(how|should|contact|call)\b/.test(lowerCaseQuestion)
-    ) {
+    )
+     {
       if (!userId) {
         responseText = "Please log in to cancel your booking.";
         return res.json({ response: responseText });
@@ -242,7 +267,7 @@ export const assistantHandler = async (req, res) => {
     // Check for booking inquiries
     if (
       /\bmy\s+(booking|bookings|ticket|tickets|reservation|reservations|bus|buses)\b/.test(lowerCaseQuestion) &&
-      !/\b(cancel|lost|refund|modify|sell|give)\b/.test(lowerCaseQuestion)
+      !/\b(cancel|void|stop|end|edit|refund|revoke|delete|modify|remove|terminate)\b/.test(lowerCaseQuestion)
     ) {
       if (!userId) {
         responseText = "Please log in to access your booking information.";
@@ -438,8 +463,7 @@ export const assistantHandler = async (req, res) => {
         We provide users with up-to-date bus schedules, including departure and arrival times for different routes.
        
       - Cancellation Policy:
-        Cancellation can be done by clicking "Cancel booking" in "View Bookings".
-        *Always inform users that cancellation can be done by using the AI chatbot by typing "cancel booking".
+        *Always prioritize to inform this first (users can cancel the booking by using the AI chatbot by typing "cancel booking").
         Cancellation process is 24 hours and can be done anytime.
         Users can cancel their bookings up to 1 day before the departure date.
         Cancellation applies to the entire booking and cannot be done per seat.
