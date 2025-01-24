@@ -18,7 +18,7 @@ router.get('/', verifyAdmin, getAllBookings);
 // Get user-specific bookings
 router.get('/:userId', verifyUser, getUserBookings);
 
-// Update booking (Admin or specific user)
+// Update booking (Admin only)
 router.put('/:bookingId', verifyUser, updateBooking);
 
 // Cancel a booking (User only)
