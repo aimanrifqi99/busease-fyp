@@ -64,26 +64,22 @@ export const updateBooking = async (req, res) => {
  
 
   try {
-    // 1. Find the existing booking (with user & schedule for PDF/email)
     const booking = await BookingModel.findById(bookingId)
-      .populate("user")     // So we have user data (email, username)
-      .populate("schedule") // So we have schedule data (origin, destination, etc.)
+      .populate("user")     
+      .populate("schedule")
       .exec();
 
     if (!booking) {
       return res.status(404).json({ message: "Booking not found" });
     }
 
-    // 2. Compare old seatNumbers to new seatNumbers (if provided)
     const oldSeatNumbers = booking.seatNumbers || [];
     const newSeatNumbers = updateData.seatNumbers || oldSeatNumbers; 
     const seatNumbersChanged =
       updateData.seatNumbers && // seatNumbers provided in update
       JSON.stringify(oldSeatNumbers.sort()) !== JSON.stringify(newSeatNumbers.sort());
 
-    // 3. If seat numbers changed AND we have a schedule, unbook the old seats
     if (seatNumbersChanged && booking.schedule) {
-      // Unbook old seats
       await ScheduleModel.updateOne(
         { _id: booking.schedule._id },
         {
@@ -98,7 +94,6 @@ export const updateBooking = async (req, res) => {
       );
     }
 
-    // 4. Update the booking in DB with new status/seatNumbers/other data
     const updatedBooking = await BookingModel.findByIdAndUpdate(
       bookingId,
       updateData,
@@ -111,7 +106,6 @@ export const updateBooking = async (req, res) => {
       return res.status(404).json({ message: "Booking not found after update" });
     }
 
-    // 5. If new status is cancelled, unbook all seats (in case seatNumbers changed)
     if (updatedBooking.status === "cancelled") {
       await ScheduleModel.updateOne(
         { _id: updatedBooking.schedule._id },
@@ -126,7 +120,6 @@ export const updateBooking = async (req, res) => {
         }
       );
     }
-    // 6. Else if status is ongoing, book the new seats
     else if (updatedBooking.status === "ongoing" && updatedBooking.seatNumbers.length) {
       await ScheduleModel.updateOne(
         { _id: updatedBooking.schedule._id },
@@ -144,7 +137,6 @@ export const updateBooking = async (req, res) => {
       );
     }
 
-    // 7. If status is "ongoing", (re)send the PDF ticket via email
     if (updatedBooking.status === "ongoing") {
       // Generate the PDF
       const doc = new pdfkit({ size: "A4", margin: 50 });
@@ -155,7 +147,6 @@ export const updateBooking = async (req, res) => {
         let pdfData = Buffer.concat(buffers);
 
         try {
-          // nodemailer transporter
           let transporter = nodemailer.createTransport({
             service: process.env.EMAIL_SERVICE,
             auth: {
@@ -164,7 +155,6 @@ export const updateBooking = async (req, res) => {
             },
           });
 
-          // Send email with PDF
           await transporter.sendMail({
             from: `"BusEase" <${process.env.EMAIL_USER}>`,
             to: updatedBooking.user.email, 
@@ -185,7 +175,6 @@ export const updateBooking = async (req, res) => {
           });
         } catch (emailError) {
           console.error("Error sending updated ticket email:", emailError);
-          // You could send partial success or ignore the email failure
         }
       });
 
@@ -244,10 +233,9 @@ export const updateBooking = async (req, res) => {
         )
         .moveDown(2);
 
-      doc.end(); // finalize PDF
+      doc.end();
     }
 
-    // 8. Return the final updated booking
     res.status(200).json(updatedBooking);
   } catch (error) {
     console.error("Error updating booking:", error);
