@@ -250,9 +250,7 @@ export const assistantHandler = async (req, res) => {
     if (
       /\b(cancel|void|stop|end|refund|revoke|delete|erase|remove|terminate|abort|discard|withdraw|drop|cease)\s+(my|a|the|this|that|these|those|any|all|current|existing|past|upcoming|latest|previous)?\s*(booking|bookings|ticket|tickets|reservation|reservations|bus|buses|bas|trip|trips|journey|journeys|schedule|schedules)\b/.test(lowerCaseQuestion)&&
       !state.awaitingBookingId &&
-      !lowerCaseQuestion.includes('seat') &&
-      !lowerCaseQuestion.includes('seats') &&
-      !/\b(how|should|contact|call)\b/.test(lowerCaseQuestion)
+      !/\b(how|should|contact|call|seat|seats|anytime|when)\b/.test(lowerCaseQuestion)
     )
      {
       if (!userId) {
