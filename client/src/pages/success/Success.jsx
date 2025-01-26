@@ -39,7 +39,7 @@ const Success = () => {
           if (response.data.success) {
             setLoading(false);
             alert('Booking successful! Your ticket has been sent to your email.');
-            navigate(-3);
+            navigate(-4);
           } else {
             setError('Booking could not be completed.');
           }

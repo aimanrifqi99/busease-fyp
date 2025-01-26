@@ -9,6 +9,7 @@ const UserManagement = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
+
     useEffect(() => {
         const fetchUsers = async () => {
             try {
@@ -25,12 +26,14 @@ const UserManagement = () => {
     }, []);
 
     const handleDelete = async (id) => {
-        try {
-            await deleteUser(id);
-            setUsers(users.filter(user => user._id !== id));
-        } catch (err) {
-            console.error('Failed to delete user:', err);
-            setError('Failed to delete user');
+        if (window.confirm('Are you sure you want to delete this user?')) {
+            try {
+                await deleteUser(id);
+                setUsers(users.filter(user => user._id !== id));
+            } catch (err) {
+                console.error('Failed to delete user:', err);
+                setError('Failed to delete user');
+            }
         }
     };
 
@@ -57,7 +60,7 @@ const UserManagement = () => {
                             <td>{user.username}</td>
                             <td>{user.email}</td>
                             <td>
-                                <button onClick={() => handleView(user._id)}>View</button> {/* Updated */}
+                                <button onClick={() => handleView(user._id)}>View</button>
                                 <button onClick={() => handleDelete(user._id)}>Delete</button>
                             </td>
                         </tr>

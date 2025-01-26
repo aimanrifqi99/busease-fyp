@@ -45,6 +45,8 @@ const List = () => {
   const [destinationSuggestions, setDestinationSuggestions] = useState([]);
   const [sortByPrice, setSortByPrice] = useState(false);
   const [sortByDuration, setSortByDuration] = useState(false);
+  // Notice: NO checkbox for earliest departure => we do it by default
+
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -109,11 +111,11 @@ const List = () => {
     };
 
     dispatch({ type: "NEW_SEARCH", payload: searchData });
-
     fetchSchedules(localOrigin, localDestination, localDate);
     setSubmitted(true);
   };
 
+  // Fetch schedules if context has origin/destination/date
   useEffect(() => {
     if (origin && destination && date) {
       setLocalOrigin(origin);
@@ -133,18 +135,40 @@ const List = () => {
     return hours * 60 + minutes;
   };
 
-  // Function to sort data by price or duration
+  // Helper: construct a timestamp from departureDate + departureTime
+  const getDepartureTimestamp = (item) => {
+    try {
+      if (!item.departureDate || !item.departureTime) return Infinity;
+      // Parse the date
+      const dateObj = new Date(item.departureDate); // e.g., "2023-01-25T00:00:00.000Z"
+      const [hours, minutes] = item.departureTime.split(":").map(Number);
+
+      // Set hours/minutes on the same date
+      dateObj.setHours(hours, minutes, 0, 0);
+      return dateObj.getTime();
+    } catch {
+      return Infinity;
+    }
+  };
+
+  // Sort data
   const sortedData = () => {
     if (!data) return [];
+
     if (sortByPrice) {
+      // Sort by cheapest price
       return [...data].sort((a, b) => a.price - b.price);
-    }
-    if (sortByDuration) {
+    } else if (sortByDuration) {
+      // Sort by shortest duration
       return [...data].sort(
         (a, b) => durationToMinutes(a.duration) - durationToMinutes(b.duration)
       );
+    } else {
+      // Default: earliest departure time
+      return [...data].sort(
+        (a, b) => getDepartureTimestamp(a) - getDepartureTimestamp(b)
+      );
     }
-    return data;
   };
 
   // Autosuggest functions
@@ -188,7 +212,9 @@ const List = () => {
                 onSuggestionsFetchRequested={({ value }) =>
                   onSuggestionsFetchRequested({ value }, true)
                 }
-                onSuggestionsClearRequested={() => onSuggestionsClearRequested(true)}
+                onSuggestionsClearRequested={() =>
+                  onSuggestionsClearRequested(true)
+                }
                 getSuggestionValue={(suggestion) => suggestion}
                 renderSuggestion={(suggestion) => <div>{suggestion}</div>}
                 inputProps={{
@@ -265,10 +291,7 @@ const List = () => {
                       checked={selectedAmenities.includes(amenity)}
                       onChange={(e) => {
                         if (e.target.checked) {
-                          setSelectedAmenities([
-                            ...selectedAmenities,
-                            amenity,
-                          ]);
+                          setSelectedAmenities([...selectedAmenities, amenity]);
                         } else {
                           setSelectedAmenities(
                             selectedAmenities.filter((a) => a !== amenity)
@@ -290,13 +313,17 @@ const List = () => {
                   checked={sortByPrice}
                   onChange={(e) => {
                     setSortByPrice(e.target.checked);
-                    setSortByDuration(false);
+                    // If checked, uncheck the other
+                    if (e.target.checked) {
+                      setSortByDuration(false);
+                    }
                   }}
                   className="checkboxInput"
                 />
                 Sort by cheapest price
               </label>
             </div>
+
             <div className="lsItem">
               <label className="checkboxLabel">
                 <input
@@ -304,7 +331,10 @@ const List = () => {
                   checked={sortByDuration}
                   onChange={(e) => {
                     setSortByDuration(e.target.checked);
-                    setSortByPrice(false);
+                    // If checked, uncheck the other
+                    if (e.target.checked) {
+                      setSortByPrice(false);
+                    }
                   }}
                   className="checkboxInput"
                 />
@@ -312,6 +342,7 @@ const List = () => {
               </label>
             </div>
 
+            {/* Search Button */}
             <button onClick={handleSearch} className="searchButton">
               Search
             </button>

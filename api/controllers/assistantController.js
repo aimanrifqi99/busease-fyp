@@ -16,10 +16,15 @@ const formatDate = (date) => {
   return new Date(date).toLocaleDateString(undefined, options);
 };
 
-// 3) Utility to find partial-match city in your city list
+// 3) Utility to find partial-match city in city list
 const findCityMatch = (inputCity, cityList) => {
   const userCity = inputCity.trim().toLowerCase();
-  return cityList.find((city) => city.toLowerCase().includes(userCity)) || null;
+
+return cityList.find((city) => {
+  const c = ` ${city.toLowerCase()} `;
+  const u = ` ${userCity} `;
+  return c.includes(u);
+});
 };
 
 // 4) Extract relevant entities (bus name, cities, date) from text
@@ -309,8 +314,8 @@ export const assistantHandler = async (req, res) => {
       let destination = null;
 
       // Check for 'from' and 'to'
-      const fromMatch = lowerCaseQuestion.match(/from\s+([a-z\s]+?)(?=\s+(to|on|at|departing|leaving|heading)|$)/i);
-      const toMatch = lowerCaseQuestion.match(/to\s+([a-z\s]+?)(?=\s+(from|on|at|departing|leaving|heading)|$)/i);
+      const fromMatch = lowerCaseQuestion.match(/from\s+([a-z\s]+?)(?=\s+(to|on|at|departing|leaving|heading)|[?.!]|$)/i);
+      const toMatch = lowerCaseQuestion.match(/to\s+([a-z\s]+?)(?=\s+(from|on|at|departing|leaving|heading)|[?.!]|$)/i);
 
       if (fromMatch && toMatch) {
         // 1) "from X to Y"
@@ -347,7 +352,7 @@ export const assistantHandler = async (req, res) => {
         return res.json({ response: responseText, conversationState: state });
       }
 
-      // Attempt partial match in your city list
+      // Attempt partial match in city list
       const matchedOrigin = findCityMatch(origin, cities);
       const matchedDestination = findCityMatch(destination, cities);
 
@@ -357,7 +362,6 @@ export const assistantHandler = async (req, res) => {
         return res.json({ response: responseText, conversationState: state });
       }
 
-      // Build your query
       const query = {
         origin: capitalize(matchedOrigin),
         destination: capitalize(matchedDestination),

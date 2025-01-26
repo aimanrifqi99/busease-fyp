@@ -19,25 +19,27 @@ const BookingManagement = () => {
     }, []);
 
     const handleCancel = (bookingId) => {
-        cancelBooking(bookingId)
-            .then(({ data }) => {
-                setBookings(bookings.map(booking =>
-                    booking._id === bookingId ? { ...booking, status: 'cancelled' } : booking
-                ));
-                alert(data.message);
-            })
-            .catch(error => {
-                console.error("Error cancelling booking:", error);
-                alert("Error cancelling booking. Please try again.");
-            });
+        // Confirm before cancel
+        if (window.confirm("Are you sure you want to cancel this booking?")) {
+            cancelBooking(bookingId)
+                .then(({ data }) => {
+                    setBookings(bookings.map(booking =>
+                        booking._id === bookingId ? { ...booking, status: 'cancelled' } : booking
+                    ));
+                })
+                .catch(error => {
+                    console.error("Error cancelling booking:", error);
+                    alert("Error cancelling booking. Please try again.");
+                });
+        }
     };
 
     const handleDelete = (bookingId) => {
+        // Confirm before delete
         if (window.confirm("Are you sure you want to delete this booking?")) {
             deleteBooking(bookingId)
                 .then(() => {
                     setBookings(bookings.filter(booking => booking._id !== bookingId));
-                    alert("Booking deleted successfully.");
                 })
                 .catch(error => {
                     console.error("Error deleting booking:", error);
@@ -78,7 +80,10 @@ const BookingManagement = () => {
                                 )}
                             </td>
                             <td>
-                                <button onClick={() => handleView(booking._id)} className="viewButton">
+                                <button
+                                    onClick={() => handleView(booking._id)}
+                                    className="viewButton"
+                                >
                                     View
                                 </button>
                                 <button
@@ -88,7 +93,10 @@ const BookingManagement = () => {
                                 >
                                     Cancel
                                 </button>
-                                <button onClick={() => handleDelete(booking._id)} className="deleteButton">
+                                <button
+                                    onClick={() => handleDelete(booking._id)}
+                                    className="deleteButton"
+                                >
                                     Delete
                                 </button>
                             </td>
