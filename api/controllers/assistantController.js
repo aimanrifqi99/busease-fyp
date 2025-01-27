@@ -497,6 +497,17 @@ export const assistantHandler = async (req, res) => {
         users can select available seats during the booking process. Booked or unavailable seats will be displayed in red, while available seats will be shown in green.
         User can view their current bookings by logging in and navigating to the “My Bookings” section. Here, they will find details like departure time, seat number, and booking status.
         In case of delays or cancellations by the bus operator, Refunds or rescheduling will be handled based on the operator's policy.
+        User will need to register and log in to book a ticket.
+        It is compulsory to print out the e-ticket of the booking. However, for some bus company, printed ticket is optional.
+        If e-ticket is lost user may email to us and our customer service team will email the e-ticket within 24 hours.
+        Normally express bus company will open their schedule 1 month in advance.
+        No specific ticket for kid.
+        Booking via phone is currently not available.
+        The ticket is transferable, just send the ticket to the other person.
+        For most of the buses, every passenger is only allowed to bring the maximum of 15kg of luggage.
+        The express bus will normally stop for 10 minutes for toilet break. If they have urgent matters, kindly inform the bus driver.
+        No. Pets are not allowed on-board for bus.
+        User may bring baby car seat into the bus. However, please note that not all buses have seat belt installed to secure the baby car seat.
 
       ### Important Notes:
       - You should **only** respond within the context of Bus Ease's services.
