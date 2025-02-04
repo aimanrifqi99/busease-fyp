@@ -4,22 +4,56 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const ScheduleSchema = new Schema({
-    name: { type: String, required: true },
-    origin: { type: String, required: true },
-    destination: { type: String, required: true },
-    price: { type: Number, required: true },
-    photos: { type: [String] },
-    departureDate: { type: Date, required: true },
-    departureTime: { type: String, required: true },
-    arrivalTime: { type: String, required: true },
-    duration: { type: String },
+    name: { 
+        type: String,
+        required: true 
+    },
+    origin: { 
+        type: String, 
+        required: true 
+    },
+    destination: { 
+        type: String, 
+        required: true 
+    },
+    price: { 
+        type: Number, 
+        required: true 
+    },
+    photos: { 
+        type: [String] 
+    },
+    departureDate: { 
+        type: Date, 
+        required: true 
+    },
+    departureTime: { 
+        type: String, 
+        required: true 
+    },
+    arrivalTime: { 
+        type: String, 
+        required: true 
+    },
+    duration: { 
+        type: String 
+    },
     stops: [{
         stopName: { type: String, required: true },
         arrivalTime: { type: String, required: true }
     }],
-    amenities: { type: [String], default: [] },
-    desc: { type: String, required: true },
-    totalSeats: { type: Number, required: true },
+    amenities: { 
+        type: [String], 
+        default: [] 
+    },
+    desc: { 
+        type: String, 
+        required: true 
+    },
+    totalSeats: { 
+        type: Number, 
+        required: true 
+    },
     seatNumbers: [{
         number: Number,
         isBooked: { type: Boolean, default: false }

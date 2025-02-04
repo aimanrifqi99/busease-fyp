@@ -15,20 +15,20 @@ const BookingSchema = new Schema({
     required: true
   },
   seatNumbers: {
-    type: [Number],  // Array of seat numbers that were booked
+    type: [Number],
     required: true
   },
   totalPrice: {
-    type: Number,  // Total price for the booking
+    type: Number,
     required: true
   },
   bookingDate: {
-    type: Date,  // Date when the booking was made
+    type: Date, 
     default: Date.now
   },
   status: {
     type: String,
-    enum: ['ongoing', 'completed', 'cancelled'], // Possible statuses
+    enum: ['ongoing', 'completed', 'cancelled'],
     default: 'ongoing'
   }
 });
