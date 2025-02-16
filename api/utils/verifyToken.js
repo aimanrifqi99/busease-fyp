@@ -4,7 +4,7 @@ import { createError } from "../utils/error.js";
 
 // Verify Token Middleware
 export const verifyToken = (req, res, next) => {
-  const token = req.headers.authorization?.split(" ")[1]; // Extract the token from the Authorization header
+  const token = req.headers.authorization?.split(" ")[1];
 
   if (!token) {
     console.log("No token provided");
@@ -16,8 +16,8 @@ export const verifyToken = (req, res, next) => {
       console.log("Token verification failed:", err);
       return next(createError(403, "Token is not valid!"));
     }
-    req.user = user; // Attach the user info to req.user
-    next(); // Proceed to the next middleware
+    req.user = user;
+    next();
   });
 };
 

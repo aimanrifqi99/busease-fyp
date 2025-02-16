@@ -7,7 +7,7 @@ import axios from "axios";
 import { AuthContext } from '../../context/AuthContext';
 import { loadStripe } from '@stripe/stripe-js';
 
-const stripePromise = loadStripe('pk_test_51QAYjCJpEmLb8AB19f8Fuc0yWvWVplTBjltUdeP9jdmXEFcGBleoT3xJnCtOCaZtqPyr0B8sXPYf5cNML6UwWfbI00TmOd12Ua'); // Replace with your publishable key
+const stripePromise = loadStripe('pk_test_51QAYjCJpEmLb8AB19f8Fuc0yWvWVplTBjltUdeP9jdmXEFcGBleoT3xJnCtOCaZtqPyr0B8sXPYf5cNML6UwWfbI00TmOd12Ua');
 const API_URL = process.env.REACT_APP_API_URL;
 
 const Reserve = ({ setOpen, scheduleId }) => {
